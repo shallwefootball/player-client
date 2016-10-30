@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -14,34 +14,92 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 
 
 import config from '../config'
-
-console.log('confg  : ', config)
-
 const url = config.dev.apiUrl + '/login'
-
-console.log('url   : ', url);
-
+const ENTER_KEY = 13
 
 const head = (
   <p>선수 로그인</p>
 )
 
-export default () => {
-  return (
-    <Grid>
-      <Panel header={head}>
-        <Form action={url} method="post">
-          <FormGroup controlId={'email'}>
-            <ControlLabel>email</ControlLabel>
-            <FormControl type="email" placeholder="Enter Email" name="email"/>
-          </FormGroup>
-          <FormGroup controlId={'password'}>
-            <ControlLabel>password</ControlLabel>
-            <FormControl type="password" placeholder="Enter Password" name="password"/>
-          </FormGroup>
-          <Button type="submit" block>로그인</Button>
-        </Form>
-      </Panel>
-    </Grid>
-  )
+export default class Login extends Component {
+
+  constructor() {
+    super()
+
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
+
+  _login() {
+
+    const myHeaders = new Headers()
+    myHeaders.append("Content-Type", "application/json")
+
+    console.log('login state  : ', this.state)
+    fetch(url, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    })
+    .then(res => (res.json()))
+    .then(json => {
+      console.log('json  : ', json)
+    })
+  }
+
+  handleButton() {
+
+    this._login()
+  }
+
+  handleChangeEmail(e) {
+    this.setState({
+      email: e.target.value
+    })
+  }
+  handleChangePassword(e) {
+    this.setState({
+      password: e.target.value
+    })
+  }
+  handleKey(e) {
+    if(e.keyCode === ENTER_KEY) {
+      this._login()
+    }
+  }
+
+  render() {
+
+    return (
+      <Grid>
+        <Panel header={head}>
+          <Form ref="form">
+            <FormGroup controlId={'email'}>
+              <ControlLabel>email</ControlLabel>
+              <FormControl
+                type="email"
+                placeholder="Enter Email"
+                onChange={this.handleChangeEmail.bind(this)}
+              />
+            </FormGroup>
+            <FormGroup controlId={'password'}>
+              <ControlLabel>password</ControlLabel>
+              <FormControl
+                type="password"
+                placeholder="Enter Password"
+                ref="password"
+                onChange={this.handleChangePassword.bind(this)}
+                onKeyDown={this.handleKey.bind(this)}
+              />
+            </FormGroup>
+            <Button type="button" block onClick={this.handleButton.bind(this)}>로그인</Button>
+          </Form>
+        </Panel>
+      </Grid>
+    )
+  }
 }
