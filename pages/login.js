@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Link from 'next/link'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 
@@ -48,6 +50,7 @@ export default class Login extends Component {
     .then(res => (res.json()))
     .then(json => {
       console.log('json  : ', json)
+      location.href = '/match'
     })
   }
 
