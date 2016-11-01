@@ -1,3 +1,4 @@
 export default {
-  SET_LEAGUES: 'SET_LEAGUES'
+  SET_LEAGUES: 'SET_LEAGUES',
+  SET_MATCHES: 'SET_MATCHES'
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import io from 'socket.io-client'
 
 import { initStore } from '../store'
 
@@ -10,7 +9,6 @@ import Login from './login'
 import League from './league'
 
 import config from '../config'
-
 
 const url = config.dev.apiUrl + '/league'
 
@@ -22,11 +20,7 @@ export default class Index extends Component {
     return fetch(url, { method: 'get' })
       .then(res => (res.json()))
       .then(({ leagues }) => {
-
-        const league = {
-          leagues: leagues,
-          seasons: leagues.map(league => (league.season))
-        }
+        const league = { leagues: leagues }
         const store = initStore(reducers, {league}, isServer)
         return { initialState: store.getState(), isServer }
       })
@@ -34,7 +28,7 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props)
-    this.store = initStore(reducers, props.initialState, this.props.isServer)
+    this.store = initStore(reducers, props.initialState, props.isServer)
   }
 
   render() {

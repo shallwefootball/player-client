@@ -7,33 +7,50 @@ import actions from '../actions'
 import Header from './header'
 
 import SeasonLink from '../components/season-link'
-
+import Match from '../components/match'
 
 
 class League extends Component {
   constructor(props) {
     super(props)
 
+    const seasonString = props.league.leagues[0].season
+    const { leagueId } = this._getActiveLeague(seasonString)
+
+    props.actions.getMatches(leagueId)
+
     this.state = {
-      activeSeason: props.league.seasons[0]
+      activeSeason: seasonString
     }
   }
 
-  handleChangeSeason(season) {
+  handleChangeSeason(seasonString) {
+    const { leagueId } = this._getActiveLeague(seasonString)
+    this.props.actions.getMatches(leagueId)
     this.setState({
-      activeSeason: season
+      activeSeason: seasonString
     })
   }
 
+  _getActiveLeague(seasonString) {
+    return this.props.league.leagues.filter(league => {
+      return league.season == seasonString ? true : false
+    })[0]
+  }
+
   render() {
-    const { seasons } = this.props.league
+    const seasons = this.props.league.leagues.map(league => (league.season))
+    const { activeSeason } = this.state
     return (
       <div>
         <Header />
         <SeasonLink
           seasons={seasons}
-          activeSeason={this.state.activeSeason}
+          activeSeason={activeSeason}
           onChange={this.handleChangeSeason.bind(this)}
+        />
+        <Match
+          match={this.props.match}
         />
       </div>
     )
