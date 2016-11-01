@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { createStore, applyMiddleware } from 'redux'
-import { Provider, connect } from 'react-redux'
+import { Provider } from 'react-redux'
 import io from 'socket.io-client'
 
 import { initStore } from '../store'
