@@ -1,20 +1,50 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider, connect } from 'react-redux'
 import io from 'socket.io-client'
+
+import { initStore } from '../store'
+
+import reducers from '../reducers'
 
 import Login from './login'
 import League from './league'
 
 import config from '../config'
 
-// console.log('io  : ', io(config.dev.apiUrl, { path: '/api' }))
 
-export default () => {
-  return (
-    <div>
+const url = config.dev.apiUrl + '/league'
 
-      <League />
-    </div>
-  )
+export default class Index extends Component {
+
+  static getInitialProps({req} ) {
+    const isServer = !!req
+
+    return fetch(url, { method: 'get' })
+      .then(res => (res.json()))
+      .then(({ leagues }) => {
+
+        const league = {
+          leagues: leagues,
+          seasons: leagues.map(league => (league.season))
+        }
+        const store = initStore(reducers, {league}, isServer)
+        return { initialState: store.getState(), isServer }
+      })
+  }
+
+  constructor(props) {
+    super(props)
+    this.store = initStore(reducers, props.initialState, this.props.isServer)
+  }
+
+  render() {
+    return (
+      <Provider store={this.store}>
+        <League />
+      </Provider>
+    )
+  }
 }
 
 // <Login />
