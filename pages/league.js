@@ -49,9 +49,11 @@ class League extends Component {
           activeSeason={activeSeason}
           onChange={this.handleChangeSeason.bind(this)}
         />
+
         <Match
           match={this.props.match}
         />
+        <script src="https://use.fontawesome.com/a8eaded6f6.js"></script>
       </div>
     )
   }

@@ -9,7 +9,9 @@ export default class Match extends Component {
 
   render() {
     return (
+
       <Accordion>
+
         {
           this.props.match.matches.map(match => {
 
