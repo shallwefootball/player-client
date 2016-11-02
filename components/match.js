@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Accordion from 'react-bootstrap/lib/Accordion'
 import Panel from 'react-bootstrap/lib/Panel'
 
-import MatchHeader from './match-header'
+import matchHeader from './match-header'
 
 export default class Match extends Component {
 
@@ -15,7 +15,7 @@ export default class Match extends Component {
 
             return (
               <Panel
-                header={<MatchHeader match={match} />}
+                header={matchHeader(match)}
                 eventKey={match.matchId}
                 key={match.matchId}
               >
@@ -28,4 +28,3 @@ export default class Match extends Component {
     )
   }
 }
-
