@@ -1,17 +1,28 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import radium from 'radium'
 import Button from 'react-bootstrap/lib/Button'
+
+import style from 'next/css'
 
 import config from '../config'
 
 const url = config.dev.apiUrl
 
-class MatchHeader extends Component {
+const hoverStyle = style({
+  ':hover': {
+    textDecoration: 'none',
+    cursor: 'pointer'
+  }
+})
+
+export default class MatchHeader extends Component {
 
   handleClickHeader() {
-
     this.props.onClick(this.props.match.matchId)
+  }
+
+  handleClickAdd(e) {
+    e.stopPropagation()
   }
 
   _renderWithdrawFlag(note) {
@@ -34,12 +45,7 @@ class MatchHeader extends Component {
 
     return (
       <span
-        style={{
-          ':hover': {
-            textDecoration: 'none',
-            cursor: 'pointer'
-          }
-        }}
+        className={hoverStyle}
         onClick={this.handleClickHeader.bind(this)}
       >
         <span className="text-info">
@@ -71,7 +77,11 @@ class MatchHeader extends Component {
           />
         </span>
 
-        <Button bsStyle="default" bsSize="xsmall">
+        <Button
+          bsStyle="default"
+          bsSize="xsmall"
+          onClick={this.handleClickAdd.bind(this)}
+        >
           참가
         </Button>
 
@@ -79,6 +89,3 @@ class MatchHeader extends Component {
     )
   }
 }
-
-
-export default radium(MatchHeader)
