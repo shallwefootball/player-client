@@ -1,4 +1,5 @@
 export default {
+  LOGIN_REDIRECT_PATH: '/',
   SET_LEAGUES: 'SET_LEAGUES',
   SET_MATCHES: 'SET_MATCHES'
 }

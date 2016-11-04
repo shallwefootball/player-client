@@ -14,7 +14,9 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 
+import Header from './header'
 
+import CONST from '../constraint'
 import config from '../config'
 const url = config.dev.apiUrl + '/login'
 const ENTER_KEY = 13
@@ -39,7 +41,6 @@ export default class Login extends Component {
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "application/json")
 
-    console.log('login state  : ', this.state)
     fetch(url, {
       method: 'post',
       headers: {
@@ -49,8 +50,8 @@ export default class Login extends Component {
     })
     .then(res => (res.json()))
     .then(json => {
-      console.log('json  : ', json)
-      location.href = '/match'
+      this.props.url.replaceTo('/?userId=' + json.userId)
+      // location.href = CONST.LOGIN_REDIRECT_PATH
     })
   }
 
@@ -79,6 +80,7 @@ export default class Login extends Component {
 
     return (
       <Grid>
+        <Header />
         <Panel header={head}>
           <Form ref="form">
             <FormGroup controlId={'email'}>

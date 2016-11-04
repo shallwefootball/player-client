@@ -15,7 +15,7 @@ const url = config.dev.apiUrl + '/league'
 
 export default class Index extends Component {
 
-  static getInitialProps({req} ) {
+  static getInitialProps({ req }) {
     const isServer = !!req
 
     return fetch(url, { method: 'get' })
