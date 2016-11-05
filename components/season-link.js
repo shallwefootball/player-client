@@ -16,6 +16,8 @@ export default class SeasonLink extends Component {
   }
 
   render() {
+
+    console.log('this.props.seasons  : ', this.props.seasons)
     return (
       <Breadcrumb>
         {this.props.seasons.map(val => {

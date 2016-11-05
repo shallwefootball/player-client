@@ -4,7 +4,7 @@ import Accordion from 'react-bootstrap/lib/Accordion'
 import PanelGroup from 'react-bootstrap/lib/PanelGroup'
 import Panel from 'react-bootstrap/lib/Panel'
 
-import MatchHeader from './match-header'
+import FixtureHeader from './fixture-header'
 
 export default class Match extends Component {
 
@@ -39,7 +39,7 @@ export default class Match extends Component {
             return (
               <Panel
                 header={
-                  <MatchHeader
+                  <FixtureHeader
                     match={match}
                     onClick={this.handleClickHeader.bind(this)}
                   />

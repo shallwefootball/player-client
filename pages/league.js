@@ -7,7 +7,7 @@ import actions from '../actions'
 import Header from './header'
 
 import SeasonLink from '../components/season-link'
-import Match from '../components/match'
+import Fixture from '../components/fixture'
 
 
 class League extends Component {
@@ -50,7 +50,7 @@ class League extends Component {
           onChange={this.handleChangeSeason.bind(this)}
         />
 
-        <Match
+        <Fixture
           match={this.props.match}
         />
         <script src="https://use.fontawesome.com/a8eaded6f6.js"></script>
