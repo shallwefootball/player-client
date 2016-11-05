@@ -50,8 +50,6 @@ export default class MatchHeader extends Component {
       friendlyMatchId
     } = this.props.match
 
-    console.log('friendlyMatchId  : ', friendlyMatchId)
-
     return (
 
       <span>
