@@ -23,6 +23,6 @@ export const getLeagues = () => {
 export const setLeagues = leagues => {
   return {
     type: CONST.SET_LEAGUES,
-    leagues: leagues
+    leagues
   }
 }
