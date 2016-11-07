@@ -1,41 +1,37 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import actions from '../actions'
+
+import Link from 'next/link'
 
 import Button from 'react-bootstrap/lib/Button'
 
-import actions from '../actions'
-import Header from '../components/header'
-
-import ClubSchdule from './club-schedule'
-import Formation from './formation'
-
-class Lineup extends Component {
+import Header from './header'
 
 
-  constructor(props) {
-    super(props)
-  }
+class Main extends Component {
 
   render() {
-
     return (
       <div>
         <Header />
-        <ClubSchdule
-          match={this.props.match}
-          team={this.props.team}
-        />
+        <Link href="/admin">
+          <Button>
+            admin으로 가기
+          </Button>
+        </Link>
       </div>
     )
   }
 }
 
 
+
+
 const mapStateToProps = (state, ownState) => {
 
-  const { match, team } = state
-  return { match, team }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {
@@ -47,4 +43,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Lineup)
+)(Main)

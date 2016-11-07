@@ -17,7 +17,7 @@ export default class TeamSchdule extends Component {
     return (
       <div>
         <h4>{team.teamName} 팀의 진행해야할 경기.</h4>
-        <FormGroup controlId="formControlsSelect">
+        <FormGroup>
           <FormControl
             componentClass="select"
             placeholder="select"

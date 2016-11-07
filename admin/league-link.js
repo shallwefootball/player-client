@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Link from 'next/link'
 
 import Button from 'react-bootstrap/lib/Button'
 
 import actions from '../actions'
-import Header from '../pages/header'
+import Header from '../components/header'
 
-class SubmitPlayer extends Component {
-
+class LeagueLink extends Component {
 
   constructor(props) {
     super(props)
     console.log("props  : ", props)
+  }
+
+  componentDidMount() {
+    this.props.actions.getLeagues()
   }
 
   render() {
@@ -21,15 +25,13 @@ class SubmitPlayer extends Component {
       <div>
         <Header />
         {
-          this.props.team.teams.map(team => {
+          this.props.league.leagues.map(league => {
             return (
-              <div key={team.teamId}>
-                <Button
-                  href={'/lineup?teamId=' + team.teamId}
-                >
-                  {team.teamName}
+              <Link href={'/league?leagueId=' + league.leagueId} key={league.leagueId}>
+                <Button>
+                  {league.community} {league.season}
                 </Button>
-              </div>
+              </Link>
             )
           })
         }
@@ -41,8 +43,8 @@ class SubmitPlayer extends Component {
 
 const mapStateToProps = (state, ownState) => {
 
-  const { team } = state
-  return { team }
+  const { league } = state
+  return { league }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -54,4 +56,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SubmitPlayer)
+)(LeagueLink)
