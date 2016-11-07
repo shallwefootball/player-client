@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 
-import Header from './header'
-import SubmitPlayer from '../admin/submit-player'
+import TeamLink from '../admin/team-link'
 import { initStore } from '../store'
 import reducers from '../reducers'
 import { dev } from '../config'
 
-const url = dev.apiUrl + '/team'
+const url = dev.apiUrl + '/teams'
 
 export default class Admin extends Component {
 
@@ -24,12 +24,16 @@ export default class Admin extends Component {
       })
   }
 
+  constructor(props) {
+    super(props)
+    this.store = initStore(reducers, props.initialState, props.isServer)
+  }
+
   render() {
     return (
-      <div>
-        <Header />
-        <SubmitPlayer />
-      </div>
+      <Provider store={this.store}>
+        <TeamLink />
+      </Provider>
     )
   }
 }

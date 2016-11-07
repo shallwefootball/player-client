@@ -40,7 +40,7 @@ export default class Test extends Component {
   constructor(props) {
     super(props)
 
-    // console.log('test props  : ', props)
+    console.log('test props  : ', props)
   }
 
   render () {
