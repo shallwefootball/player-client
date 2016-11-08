@@ -9,6 +9,7 @@ import Header from '../components/header'
 
 import ClubSchdule from './club-schedule'
 import Formation from './formation'
+import LineupPlayer from './lineup-player'
 
 class Lineup extends Component {
 
@@ -22,6 +23,7 @@ class Lineup extends Component {
     const { clubId } = this.props.url.query
     actions.getWillMatch(clubId)
     actions.getTeam(clubId)
+    actions.getPlayers(clubId)
   }
 
   render() {
@@ -33,6 +35,8 @@ class Lineup extends Component {
           match={this.props.match}
           team={this.props.team}
         />
+
+        <LineupPlayer />
       </div>
     )
   }
@@ -41,8 +45,8 @@ class Lineup extends Component {
 
 const mapStateToProps = (state, ownState) => {
 
-  const { match, team } = state
-  return { match, team }
+  const { match, team, player } = state
+  return { match, team, player }
 }
 
 const mapDispatchToProps = dispatch => {
