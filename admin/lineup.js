@@ -17,6 +17,13 @@ class Lineup extends Component {
     super(props)
   }
 
+  componentDidMount() {
+    const { actions, url } = this.props
+    const { clubId } = this.props.url.query
+    actions.getWillMatch(clubId)
+    actions.getTeam(clubId)
+  }
+
   render() {
 
     return (

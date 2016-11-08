@@ -8,9 +8,6 @@ import reducers from '../reducers'
 import Main from '../components/main'
 import retina from 'retinajs'
 
-import { dev } from '../config'
-const url = dev.apiUrl + '/league'
-
 export default class Index extends Component {
 
   static getInitialProps({ req }) {

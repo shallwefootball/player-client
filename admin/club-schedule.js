@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
+
+
 
 export default class TeamSchdule extends Component {
 
@@ -30,7 +33,7 @@ export default class TeamSchdule extends Component {
                     value={match.matchId}
                     key={match.matchId}
                   >
-                    {match.homeClubName}vs{match.awayClubName}
+                    {moment(match.kickoffTime).format('M.D')} - {match.homeClubName}vs{match.awayClubName}
                   </option>
                 )
               })

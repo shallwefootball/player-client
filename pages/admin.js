@@ -8,9 +8,6 @@ import reducers from '../reducers'
 import ClubLink from '../admin/club-link'
 import LeagueLink from '../admin/league-link'
 
-import { dev } from '../config'
-const url = dev.apiUrl + '/league'
-
 export default class Admin extends Component {
 
   static getInitialProps({ req }) {
