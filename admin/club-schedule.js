@@ -15,11 +15,11 @@ export default class TeamSchdule extends Component {
 
   render() {
 
-    const { team, match } = this.props
+    const { club, match } = this.props
 
     return (
       <div>
-        <h4>{team.teamName} 팀의 진행해야할 경기.</h4>
+        <h4>{club.teamName} 팀의 진행해야할 경기.</h4>
         <FormGroup>
           <FormControl
             componentClass="select"

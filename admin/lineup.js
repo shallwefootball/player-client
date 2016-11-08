@@ -22,7 +22,7 @@ class Lineup extends Component {
     const { actions, url } = this.props
     const { clubId } = this.props.url.query
     actions.getWillMatch(clubId)
-    actions.getTeam(clubId)
+    actions.getClub(clubId)
     actions.getPlayers(clubId)
   }
 
@@ -33,7 +33,7 @@ class Lineup extends Component {
         <Header />
         <ClubSchdule
           match={this.props.match}
-          team={this.props.team}
+          club={this.props.club}
         />
 
         <LineupPlayer />
@@ -45,8 +45,8 @@ class Lineup extends Component {
 
 const mapStateToProps = (state, ownState) => {
 
-  const { match, team, player } = state
-  return { match, team, player }
+  const { match, club, player } = state
+  return { match, club, player }
 }
 
 const mapDispatchToProps = dispatch => {
