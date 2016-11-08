@@ -28,7 +28,7 @@ class Lineup extends Component {
 
   render() {
 
-    const { match, club, player } = this.props
+    const { match, club, player, actions } = this.props
 
     return (
       <div>
@@ -40,6 +40,7 @@ class Lineup extends Component {
 
         <LineupPlayers
           player={player}
+          actions={actions}
         />
       </div>
     )

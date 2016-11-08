@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "immutability-helper": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.15.2",
     "next": "^1.1.1",

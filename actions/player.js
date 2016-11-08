@@ -18,9 +18,10 @@ export const getPlayers = clubId => {
 }
 
 
-const setPlayers = players => {
+export const setPlayers = players => {
   return {
     type: CONST.SET_PLAYERS,
     players
   }
 }
+

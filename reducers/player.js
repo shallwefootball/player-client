@@ -4,7 +4,8 @@ export default (state = { players: [] }, action) => {
 
   switch(action.type) {
     case CONST.SET_PLAYERS: {
-      return {players: action.players}
+
+      return { players: action.players }
     }
     default: return state
   }
