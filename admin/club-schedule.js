@@ -18,29 +18,27 @@ export default class TeamSchdule extends Component {
     const { club, match } = this.props
 
     return (
-      <div>
-        <h4>{club.teamName} 팀의 진행해야할 경기.</h4>
-        <FormGroup>
-          <FormControl
-            componentClass="select"
-            placeholder="select"
-            onChange={this.handleChange.bind(this)}
-          >
-            {
-              match.matches.map(match => {
-                return (
-                  <option
-                    value={match.matchId}
-                    key={match.matchId}
-                  >
-                    {moment(match.kickoffTime).format('M.D')} - {match.homeClubName}vs{match.awayClubName}
-                  </option>
-                )
-              })
-            }
-          </FormControl>
-        </FormGroup>
-      </div>
+      <FormGroup>
+        <ControlLabel>{club.teamName} 팀의 진행해야할 경기.</ControlLabel>
+        <FormControl
+          componentClass="select"
+          placeholder="select"
+          onChange={this.handleChange.bind(this)}
+        >
+          {
+            match.matches.map(match => {
+              return (
+                <option
+                  value={match.matchId}
+                  key={match.matchId}
+                >
+                  {moment(match.kickoffTime).format('M.D')} - {match.homeClubName}vs{match.awayClubName}
+                </option>
+              )
+            })
+          }
+        </FormControl>
+      </FormGroup>
     )
   }
 }

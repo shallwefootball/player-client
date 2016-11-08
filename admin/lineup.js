@@ -10,6 +10,8 @@ import Header from '../components/header'
 import ClubSchdule from './club-schedule'
 import Formation from './formation'
 import LineupPlayers from './lineup-players'
+import SubCounts from './sub-counts'
+
 
 class Lineup extends Component {
 
@@ -26,9 +28,26 @@ class Lineup extends Component {
     actions.getPlayers(clubId)
   }
 
+  handleChangeSub(sub) {
+
+    const { players } = this.props.player
+
+    for (let i = 11; i < players.length; i++) {
+      players[i].status = 'excepted'
+    }
+
+    for (let i = 0; i < sub; i++) {
+      players[11 + i].status = 'sub'
+    }
+
+    this.props.actions.setPlayers(players)
+  }
+
   render() {
 
     const { match, club, player, actions } = this.props
+
+    const subPlayer = player.players.filter(player => (player.status == 'sub'))
 
     return (
       <div>
@@ -38,9 +57,15 @@ class Lineup extends Component {
           club={club}
         />
 
+        <SubCounts
+          subCount={subPlayer.length}
+          onChangeSubCount={this.handleChangeSub.bind(this)}
+        />
+
         <LineupPlayers
           player={player}
           actions={actions}
+          subCount={subPlayer.length}
         />
       </div>
     )

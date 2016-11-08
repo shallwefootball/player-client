@@ -63,6 +63,7 @@ class LineupPlayers extends Component {
                 player={player}
                 onHoverPlayer={this.handleHover.bind(this)}
                 onDropPlayer={this.handleDrop.bind(this)}
+                subCount={this.props.subCount}
               />
             )
           })

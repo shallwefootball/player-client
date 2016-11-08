@@ -11,7 +11,6 @@ const style = {
   cursor: 'move'
 }
 
-
 const playerSource = {
   beginDrag(props) {
     return {
@@ -79,11 +78,23 @@ const playerTarget = {
 
 class LineupPlayer extends Component {
   render() {
-    const {index, player, isDragging, connectDragSource, connectDropTarget } = this.props
+    const {
+      index,
+      isDragging,
+      connectDragSource,
+      connectDropTarget,
+      player,
+      subCount
+    } = this.props
+
     const opacity = isDragging ? 0 : 1;
+    let backgroundColor = null;
+
+    if(index < 11 + subCount) backgroundColor = 'yellow'
+    if(index < 11) backgroundColor = 'green'
 
     return connectDragSource(connectDropTarget(
-      <div style={{ ...style, opacity }}>
+      <div style={{ ...style, opacity, backgroundColor }}>
         {index} - {player.playerName}
       </div>
     ))
