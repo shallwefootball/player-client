@@ -9,7 +9,7 @@ import Header from '../components/header'
 
 import ClubSchdule from './club-schedule'
 import Formation from './formation'
-import LineupPlayer from './lineup-player'
+import LineupPlayers from './lineup-players'
 
 class Lineup extends Component {
 
@@ -28,15 +28,19 @@ class Lineup extends Component {
 
   render() {
 
+    const { match, club, player } = this.props
+
     return (
       <div>
         <Header />
         <ClubSchdule
-          match={this.props.match}
-          club={this.props.club}
+          match={match}
+          club={club}
         />
 
-        <LineupPlayer />
+        <LineupPlayers
+          player={player}
+        />
       </div>
     )
   }
