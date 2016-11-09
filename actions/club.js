@@ -28,7 +28,7 @@ export const getClubs = leagueId => {
   }
 }
 
-const setClub = club => {
+export const setClub = club => {
   return {
     type: CONST.SET_CLUB,
     club

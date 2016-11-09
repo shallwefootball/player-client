@@ -8,10 +8,9 @@ import actions from '../actions'
 import Header from '../components/header'
 
 import ClubSchdule from './club-schedule'
-import Formation from './formation'
 import LineupPlayers from './lineup-players'
 import SubCounts from './sub-counts'
-
+import FormationSelect from './formation-select'
 
 class Lineup extends Component {
 
@@ -43,6 +42,32 @@ class Lineup extends Component {
     this.props.actions.setPlayers(players)
   }
 
+  handleChangeFormation(formation) {
+
+    const { actions, club } = this.props
+
+    let formationCount = formation.split('-')
+    const dfCount = Number.parseInt(formationCount[0])
+    const mfCount = dfCount + Number.parseInt(formationCount[1])
+    const fwCount = mfCount + Number.parseInt(formationCount[2])
+
+    const { players } = this.props.player
+
+    let i = 1
+    while(i < 11) {
+
+      if(i <= dfCount) players[i].matchPosition = 'DF'
+      if(dfCount < i && i <= mfCount) players[i].matchPosition = 'MF'
+      if(mfCount < i) players[i].matchPosition = 'FW'
+      i++
+    }
+
+    actions.setPlayers(players)
+
+    club.formation = formation
+    actions.setClub(club)
+  }
+
   render() {
 
     const { match, club, player, actions } = this.props
@@ -55,6 +80,11 @@ class Lineup extends Component {
         <ClubSchdule
           match={match}
           club={club}
+        />
+
+        <FormationSelect
+          onChangeFormation={this.handleChangeFormation.bind(this)}
+          formation={club.formation}
         />
 
         <SubCounts
