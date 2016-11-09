@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import fetch from 'isomorphic-fetch'
 
 import { initStore } from '../store'
 import reducers from '../reducers'
 
-import ClubLink from '../admin/club-link'
-import LeagueLink from '../admin/league-link'
+import AdminLayout from '../layout/admin'
 
 export default class Admin extends Component {
 
@@ -22,9 +20,10 @@ export default class Admin extends Component {
   }
 
   render() {
+
     return (
       <Provider store={this.store}>
-        <LeagueLink />
+        <AdminLayout />
       </Provider>
     )
   }

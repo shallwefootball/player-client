@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import fetch from 'isomorphic-fetch'
 
 import { initStore } from '../store'
 import reducers from '../reducers'
 
-import Main from '../components/main'
+import IndexLayout from '../layout/index'
 import retina from 'retinajs'
 
 export default class Index extends Component {
@@ -26,9 +25,10 @@ export default class Index extends Component {
   }
 
   render() {
+
     return (
       <Provider store={this.store}>
-        <Main />
+        <IndexLayout />
       </Provider>
     )
   }

@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 
 import actions from '../actions'
-import Header from '../components/header'
+import Header from './header'
 
-import ClubSchdule from './club-schedule'
-import LineupPlayers from './lineup-players'
-import SubCounts from './sub-counts'
-import FormationSelect from './formation-select'
+import ClubSchdule from '../admin/club-schedule'
+import LineupPlayers from '../admin/lineup-players'
+import SubCounts from '../admin/sub-counts'
+import FormationSelect from '../admin/formation-select'
 
 class Lineup extends Component {
 

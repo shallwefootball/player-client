@@ -26,9 +26,6 @@ class Main extends Component {
   }
 }
 
-
-
-
 const mapStateToProps = (state, ownState) => {
 
   return {}

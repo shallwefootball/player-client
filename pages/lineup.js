@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch'
 import { initStore } from '../store'
 import reducers from '../reducers'
 
-import AdminLineup from '../admin/lineup'
+import LineupLayout from '../layout/lineup'
 
 
 export default class Lineup extends Component {
@@ -24,7 +24,7 @@ export default class Lineup extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <AdminLineup url={this.props.url} />
+        <LineupLayout url={this.props.url} />
       </Provider>
     )
   }

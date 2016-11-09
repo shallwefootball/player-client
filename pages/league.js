@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import fetch from 'isomorphic-fetch'
 
 import { initStore } from '../store'
 import reducers from '../reducers'
 
-import ClubLink from '../admin/club-link'
-
-
-import { dev } from '../config'
-const url = dev.apiUrl + '/clubs/'
+import LeagueLayout from '../layout/League'
 
 export default class League extends Component {
 
@@ -28,7 +23,7 @@ export default class League extends Component {
 
     return (
       <Provider store={this.store}>
-        <ClubLink url={this.props.url} />
+        <LeagueLayout url={this.props.url} />
       </Provider>
     )
   }

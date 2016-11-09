@@ -6,13 +6,11 @@ import Link from 'next/link'
 import Button from 'react-bootstrap/lib/Button'
 
 import actions from '../actions'
-import Header from '../components/header'
 
 class ClubLink extends Component {
 
   constructor(props) {
     super(props)
-    console.log("club props  : ", props)
   }
 
   componentDidMount() {
@@ -24,9 +22,9 @@ class ClubLink extends Component {
 
   render() {
 
+    console.log("club props  : ", this.props.club.clubs)
     return (
       <div>
-        <Header />
         {
           this.props.club.clubs.map(club => {
             return (

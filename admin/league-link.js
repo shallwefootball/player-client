@@ -6,7 +6,6 @@ import Link from 'next/link'
 import Button from 'react-bootstrap/lib/Button'
 
 import actions from '../actions'
-import Header from '../components/header'
 
 class LeagueLink extends Component {
 
@@ -23,7 +22,6 @@ class LeagueLink extends Component {
 
     return (
       <div>
-        <Header />
         {
           this.props.league.leagues.map(league => {
             return (

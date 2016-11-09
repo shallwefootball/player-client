@@ -14,7 +14,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 
-import Header from '../components/header'
+import Header from '../layout/header'
 
 import CONST from '../constraint'
 import config from '../config'
