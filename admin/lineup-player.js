@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 import flow from 'lodash/flow'
 import { DragSource, DropTarget } from 'react-dnd';
 
-import Badge from 'react-bootstrap/lib/Badge'
+import Label from 'react-bootstrap/lib/Label'
 
 import PositionButton from './position-button'
 
@@ -86,12 +86,25 @@ class LineupPlayer extends Component {
     this.props.onChangePosition(this.props.player.playerId, position)
   }
 
-  _renderPosition(index, position) {
+  _renderPosition(index, subCount, position) {
+
+    let positionColor = '';
+    switch(position) {
+      case 'GK': positionColor = 'warning'; break;
+      case 'DF': positionColor = 'success'; break;
+      case 'MF': positionColor = 'primary'; break;
+      case 'FW': positionColor = 'danger'; break;
+      default: positionColor = 'default';
+    }
+
     if(index < 11) {
       return (
-        <Badge>{position}</Badge>
+
+        <Label bsStyle={positionColor}>{position}</Label>
       )
     }
+
+    if(index > (subCount - 1)) return <Label bsStyle={positionColor}>{position}</Label>
     return (
       <PositionButton
         matchPosition={position}
@@ -107,7 +120,6 @@ class LineupPlayer extends Component {
       connectDragSource,
       connectDropTarget,
       player,
-      subCount,
       actions
     } = this.props
 
@@ -115,8 +127,9 @@ class LineupPlayer extends Component {
     let backgroundColor = null;
 
     let disabled = false
+    let subCount = 11 + this.props.subCount
 
-    if(index < 11 + subCount) {
+    if(index < subCount) {
       backgroundColor = 'bisque'
     }
     if(index < 11) {
@@ -126,7 +139,7 @@ class LineupPlayer extends Component {
 
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity, backgroundColor }}>
-        {this._renderPosition(index, player.matchPosition)}
+        {this._renderPosition(index, subCount, player.matchPosition)}
         {" "}- {player.playerName}
       </div>
     ))
