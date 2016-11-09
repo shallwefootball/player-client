@@ -4,6 +4,7 @@ import flow from 'lodash/flow'
 import { DragSource, DropTarget } from 'react-dnd';
 
 import Label from 'react-bootstrap/lib/Label'
+import Badge from 'react-bootstrap/lib/Badge'
 
 import PositionButton from './position-button'
 
@@ -140,7 +141,7 @@ class LineupPlayer extends Component {
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity, backgroundColor }}>
         {this._renderPosition(index, subCount, player.matchPosition)}
-        {" "}- {player.playerName}
+        {" "} - <Badge>{player.squadNumber}</Badge> {player.playerName}
       </div>
     ))
   }
