@@ -49,6 +49,16 @@ class LineupPlayers extends Component {
     this.props.actions.setPlayers(players)
   }
 
+  handleChangePosition(playerId, position) {
+
+    const players = this.state.player.players.map(player => {
+      if(player.playerId == playerId) player.matchPosition = position
+      return player
+    })
+
+    this.props.actions.setPlayers(players)
+  }
+
   render() {
 
     return (
@@ -64,6 +74,8 @@ class LineupPlayers extends Component {
                 onHoverPlayer={this.handleHover.bind(this)}
                 onDropPlayer={this.handleDrop.bind(this)}
                 subCount={this.props.subCount}
+                actions={this.props.actions}
+                onChangePosition={this.handleChangePosition.bind(this)}
               />
             )
           })
