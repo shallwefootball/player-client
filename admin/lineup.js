@@ -46,26 +46,35 @@ class Lineup extends Component {
 
     const { actions, club } = this.props
 
+    this._arangeFormation(formation)
+
+    club.formation = formation
+    actions.setClub(club)
+  }
+
+  handleDropPlayer() {
+    this._arangeFormation(this.props.club.formation)
+  }
+
+  _arangeFormation(formation) {
+
+    const { players } = this.props.player
+
     let formationCount = formation.split('-')
     const dfCount = Number.parseInt(formationCount[0])
     const mfCount = dfCount + Number.parseInt(formationCount[1])
     const fwCount = mfCount + Number.parseInt(formationCount[2])
 
-    const { players } = this.props.player
-
+    players[0].matchPosition = 'GK'
     let i = 1
     while(i < 11) {
-
-      if(i <= dfCount) players[i].matchPosition = 'DF'
-      if(dfCount < i && i <= mfCount) players[i].matchPosition = 'MF'
-      if(mfCount < i) players[i].matchPosition = 'FW'
+      if (i <= dfCount) players[i].matchPosition = 'DF'
+      if (dfCount < i && i <= mfCount) players[i].matchPosition = 'MF'
+      if (mfCount < i) players[i].matchPosition = 'FW'
       i++
     }
 
-    actions.setPlayers(players)
-
-    club.formation = formation
-    actions.setClub(club)
+    this.props.actions.setPlayers(players)
   }
 
   render() {
@@ -96,6 +105,7 @@ class Lineup extends Component {
           player={player}
           actions={actions}
           subCount={subPlayer.length}
+          onDropPlayer={this.handleDropPlayer.bind(this)}
         />
       </div>
     )

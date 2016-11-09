@@ -47,6 +47,7 @@ class LineupPlayers extends Component {
     })
 
     this.props.actions.setPlayers(players)
+    this.props.onDropPlayer()
   }
 
   handleChangePosition(playerId, position) {
