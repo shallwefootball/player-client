@@ -6,7 +6,10 @@ export default (state = { matches: [] }, action) => {
 
     case CONST.SET_MATCH: {
 
-      return action.match
+      const match = action.match
+      match.matches = state.matches
+
+      return match
     }
     case CONST.SET_MATCHES: {
 

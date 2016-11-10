@@ -25,6 +25,7 @@ export default class Match extends Component {
   }
 
   render() {
+
     return (
       <div>
         <PanelGroup

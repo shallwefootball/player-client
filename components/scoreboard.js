@@ -4,37 +4,40 @@ import Panel from 'react-bootstrap/lib/Panel'
 
 export default class Scoreboard extends Component {
   render() {
+
+    const {
+      homeClubName,
+      awayClubName
+    } = this.props.match
+
     return (
       <Panel>
         <div style={{display: 'flex'}}>
           <div
             style={{
-              backgroundColor: 'red',
               textAlign: 'center',
               flex: 2
             }}
           >
-            Home
+            {this.props.match.homeClubName}
           </div>
 
           <div
             style={{
-              backgroundColor: 'green',
               textAlign: 'center',
               flex: 1
             }}
           >
-            Score
+            vs
           </div>
 
           <div
             style={{
-              backgroundColor: 'yellow',
               textAlign: 'center',
               flex: 2
             }}
           >
-            Away
+            {awayClubName}
           </div>
         </div>
       </Panel>

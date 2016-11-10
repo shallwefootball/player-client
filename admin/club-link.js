@@ -22,7 +22,6 @@ class ClubLink extends Component {
 
   render() {
 
-    console.log("club props  : ", this.props.club.clubs)
     return (
       <div>
         {

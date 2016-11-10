@@ -18,7 +18,7 @@ class RecordLayout extends Component {
     return (
       <div>
         <Header />
-        <Scoreboard />
+        <Scoreboard match={this.props.match}/>
       </div>
     )
   }
