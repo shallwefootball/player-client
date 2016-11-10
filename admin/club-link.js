@@ -27,7 +27,7 @@ class ClubLink extends Component {
         {
           this.props.club.clubs.map(club => {
             return (
-              <Link href={'/lineup?clubId=' + club.clubId} key={club.clubId}>
+              <Link href={'/lineup?clubId=' + club.clubId + '&leagueId=' + this.props.url.query.leagueId} key={club.clubId}>
                 <Button>
                   {club.teamName}
                 </Button>

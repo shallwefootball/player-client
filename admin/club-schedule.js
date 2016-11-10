@@ -9,8 +9,24 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 
 export default class TeamSchdule extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      matchId: null
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.match.matches[0]) return
+    this.setState({
+      matchId: nextProps.match.matches[0].matchId
+    })
+  }
+
   handleChange(e) {
-    console.log('select', e.target.value)
+    this.setState({
+      matchId: e.target.value
+    })
   }
 
   render() {

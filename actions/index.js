@@ -4,6 +4,7 @@ import * as clubAction from './club'
 import * as teamAction from './team'
 import * as playerAction from './player'
 import * as recordAction from './record'
+import * as lineupAction from './lineup'
 
 export default Object.assign(
   {},
@@ -12,5 +13,6 @@ export default Object.assign(
   clubAction,
   teamAction,
   playerAction,
-  recordAction
+  recordAction,
+  lineupAction
 )

@@ -21,8 +21,8 @@ class LineupLayout extends Component {
 
   componentDidMount() {
     const { actions, url } = this.props
-    const { clubId } = this.props.url.query
-    actions.getWillMatch(clubId)
+    const { clubId, leagueId } = this.props.url.query
+    actions.getWillMatch(leagueId, clubId)
     actions.getClub(clubId)
     actions.getPlayers(clubId)
   }
@@ -59,10 +59,23 @@ class LineupLayout extends Component {
 
   handleClickSave() {
     const { player, actions, club} = this.props
+
     actions.updatePlayers(club.clubId, player.players)
-    .then(res => {
-      if(res.message == 'success') alert('save success')
-    })
+      .then(res => {
+        if(res.message == 'success') alert('save success')
+      })
+  }
+
+  handleClickSubmit() {
+    const { player, actions } = this.props
+    let { players } = player
+
+    players = players.filter(player => (player.status != 'excepted'))
+
+    actions.insertLineup(this.refs.clubSchdule.state.matchId, players)
+      .then(res => {
+        if(res.message == 'success') alert('submit success')
+      })
   }
 
   _arrangeFormation(formation, subCount) {
@@ -107,6 +120,7 @@ class LineupLayout extends Component {
         <ClubSchdule
           match={match}
           club={club}
+          ref="clubSchdule"
         />
 
         <FormationSelect
@@ -120,7 +134,7 @@ class LineupLayout extends Component {
         />
 
         <Button onClick={this.handleClickSave.bind(this)}>save</Button>
-        <Button> 제출 </Button>
+        <Button onClick={this.handleClickSubmit.bind(this)}>제출</Button>
 
         <LineupPlayers
           player={player}

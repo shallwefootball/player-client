@@ -40,9 +40,9 @@ const setMatch = match => {
   }
 }
 
-export const getWillMatch = clubId => {
+export const getWillMatch = (leagueId, clubId) => {
   return dispatch => {
-    fetch(willMatchUrl + clubId, { method: 'get' })
+    fetch(willMatchUrl + leagueId + '/' + clubId, { method: 'get' })
       .then(res => {return res.json()})
       .then(({ matches }) => {
         return dispatch(setMatches(matches))
