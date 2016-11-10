@@ -8,9 +8,7 @@ const willMatchUrl = dev.apiUrl + '/will-match/'
 const matchUrl = dev.apiUrl + '/match/'
 
 export const getMatches = leagueId => {
-
   return dispatch => {
-
     fetch(leagueUrl + leagueId, { method: 'get' })
       .then(res => (res.json())).then(({ matches }) => {
         return dispatch(setMatches(matches))
@@ -20,8 +18,7 @@ export const getMatches = leagueId => {
 
 export const getMatch = matchId => {
   return dispatch => {
-
-    fetch(matchUrl + matchId, { method: 'get' })
+    return fetch(matchUrl + matchId, { method: 'get' })
       .then(res => (res.json())).then(({ match })  => {
         return dispatch(setMatch(match))
       })

@@ -10,11 +10,16 @@ import Scoreboard from '../components/scoreboard'
 class RecordLayout extends Component {
 
   componentDidMount() {
+
     const { actions, url } = this.props
 
     actions.getMatch(url.query.matchId)
+      .then(({ match }) => {
+        actions.getHomeAwayPlayers(match.matchId, match.homeClubId, match.awayClubId)
+      })
   }
   render() {
+    console.log('this.props.match  : ', this.props.match)
     return (
       <div>
         <Header />

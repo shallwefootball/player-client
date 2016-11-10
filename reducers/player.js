@@ -7,6 +7,10 @@ export default (state = { players: [] }, action) => {
 
       return { players: action.players }
     }
+    case CONST.SET_PLAYERS_HOMEAWAY: {
+
+      return action.players
+    }
     default: return state
   }
 }

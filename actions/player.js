@@ -9,12 +9,30 @@ const url = dev.apiUrl + '/players/'
 export const getPlayers = clubId => {
 
   return dispatch => {
-
     fetch(url + clubId, { method: 'get' })
-    .then(res => (res.json())).then( ({players}) => {
-      return dispatch(setPlayers(players))
+      .then(res => (res.json())).then( ({players}) => {
+        return dispatch(setPlayers(players))
+      })
+  }
+}
+
+export const getHomeAwayPlayers = (matchId, homeClubId, awayClubId) => {
+  return dispatch => {
+    Promise.all([
+      getMatchPlayersOfAClub(matchId, homeClubId),
+      getMatchPlayersOfAClub(matchId, awayClubId)
+    ])
+    .then(values => {
+      return dispatch(setHomeAway({home: values[0], away: values[1]}))
     })
   }
+}
+
+const getMatchPlayersOfAClub = (matchId, clubId) => {
+  return fetch(url + matchId + '/' + clubId, { method: 'get' })
+    .then(res => (res.json())).then( ({players}) => {
+      return players
+    })
 }
 
 
@@ -25,3 +43,9 @@ export const setPlayers = players => {
   }
 }
 
+const setHomeAway = players => {
+  return {
+    type: CONST.SET_PLAYERS_HOMEAWAY,
+    players
+  }
+}
