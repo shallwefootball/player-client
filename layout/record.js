@@ -6,6 +6,7 @@ import Header from './header'
 
 import ClubLink from '../admin/club-link'
 import Scoreboard from '../components/scoreboard'
+import RecordPlayers from '../components/record-players'
 
 class RecordLayout extends Component {
 
@@ -16,14 +17,24 @@ class RecordLayout extends Component {
     actions.getMatch(url.query.matchId)
       .then(({ match }) => {
         actions.getHomeAwayPlayers(match.matchId, match.homeClubId, match.awayClubId)
+        actions.getRecords(match.matchId)
       })
   }
   render() {
-    console.log('this.props.match  : ', this.props.match)
+    console.log('this.props.match  : ', this.props)
     return (
       <div>
         <Header />
         <Scoreboard match={this.props.match}/>
+        <div style={{display: 'flex'}}>
+          <RecordPlayers
+            players={this.props.player.home}
+          />
+          <div style={{flex: 1}}></div>
+          <RecordPlayers
+            players={this.props.player.away}
+          />
+        </div>
       </div>
     )
   }

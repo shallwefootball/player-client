@@ -1,6 +1,13 @@
 import CONST from '../constraint'
 
-export default (state = { players: [] }, action) => {
+const initState = {
+  players: [],
+  home: [],
+  away: []
+}
+
+
+export default (state = initState, action) => {
 
   switch(action.type) {
     case CONST.SET_PLAYERS: {
