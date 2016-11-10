@@ -22,10 +22,6 @@ export default class MatchHeader extends Component {
     this.props.onClick(this.props.match.matchId)
   }
 
-  handleClickAdd(e) {
-    console.log('click~~`')
-  }
-
   _renderWithdrawFlag(note) {
 
     return note == '기권' ? <i className="fa fa-flag" aria-hidden="true"></i> : ''
@@ -89,12 +85,10 @@ export default class MatchHeader extends Component {
 
         </span>
 
-        <Button
-          bsStyle="default"
-          bsSize="xsmall"
-          onClick={this.handleClickAdd.bind(this)}
-        >
-          참가
+        <Button bsStyle="link" bsSize="xsmall">
+          <Link href={'/record?matchId=' + matchId}>
+            기록
+          </Link>
         </Button>
 
         {this._renderWithdrawLink(friendlyMatchId, matchId)}

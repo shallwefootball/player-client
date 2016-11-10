@@ -3,16 +3,27 @@ import fetch from 'isomorphic-fetch'
 import { dev } from '../config'
 import CONST from '../constraint'
 
-const url = dev.apiUrl + '/league/'
+const leagueUrl = dev.apiUrl + '/league/'
 const willMatchUrl = dev.apiUrl + '/will-match/'
+const matchUrl = dev.apiUrl + '/match/'
 
 export const getMatches = leagueId => {
 
   return dispatch => {
 
-    fetch(url + leagueId, { method: 'get' })
+    fetch(leagueUrl + leagueId, { method: 'get' })
       .then(res => (res.json())).then( ({matches}) => {
         return dispatch(setMatches(matches))
+      })
+  }
+}
+
+export const getMatch = matchId => {
+  return dispatch => {
+
+    fetch(matchUrl + matchId, { method: 'get' })
+      .then(res => (res.json())).then(match => {
+        return dispatch(setMatch(match))
       })
   }
 }
@@ -22,6 +33,13 @@ const setMatches = matches => {
   return {
     type: CONST.SET_MATCHES,
     matches: matches
+  }
+}
+
+const setMatch = match => {
+  return {
+    type: CONST.SET_MATCH,
+    match
   }
 }
 

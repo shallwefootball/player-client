@@ -26,34 +26,36 @@ export default class Match extends Component {
 
   render() {
     return (
+      <div>
+        <PanelGroup
+          accordion
+          activeKey={this.state.activeKey}
+          onSelect={this.handleSelect.bind(this)}
+        >
 
-      <PanelGroup
-        accordion
-        activeKey={this.state.activeKey}
-        onSelect={this.handleSelect.bind(this)}
-      >
+          {
+            this.props.match.matches.map(match => {
 
-        {
-          this.props.match.matches.map(match => {
-
-            return (
-              <Panel
-                header={
-                  <FixtureHeader
-                    match={match}
-                    onClick={this.handleClickHeader.bind(this)}
-                  />
-                }
-                eventKey={match.matchId}
-                key={match.matchId}
-                collapsible
-              >
-                hihihi
-              </Panel>
-            )
-          })
-        }
-      </PanelGroup>
+              return (
+                <Panel
+                  header={
+                    <FixtureHeader
+                      match={match}
+                      onClick={this.handleClickHeader.bind(this)}
+                    />
+                  }
+                  eventKey={match.matchId}
+                  key={match.matchId}
+                  collapsible
+                >
+                  panel body...
+                </Panel>
+              )
+            })
+          }
+        </PanelGroup>
+        <script src="https://use.fontawesome.com/a8eaded6f6.js"></script>
+      </div>
     )
   }
 }
