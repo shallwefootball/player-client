@@ -7,6 +7,7 @@ import Header from './header'
 import ClubLink from '../admin/club-link'
 import Scoreboard from '../components/scoreboard'
 import RecordPlayers from '../components/record-players'
+import Records from '../components/records'
 
 class RecordLayout extends Component {
 
@@ -30,7 +31,7 @@ class RecordLayout extends Component {
           <RecordPlayers
             players={this.props.player.home}
           />
-          <div style={{flex: 1}}></div>
+          <Records records={this.props.record.records} />
           <RecordPlayers
             players={this.props.player.away}
           />
@@ -44,8 +45,8 @@ class RecordLayout extends Component {
 
 const mapStateToProps = (state, ownState) => {
 
-  const { match, club, player } = state
-  return { match, club, player }
+  const { match, club, player, record } = state
+  return { match, club, player, record }
 }
 
 const mapDispatchToProps = dispatch => {

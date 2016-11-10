@@ -9,7 +9,7 @@ export default (state = initState, action) => {
   switch(action.type) {
 
     case CONST.SET_RECORDS: {
-      return action.records
+      return {records: action.records}
     }
     default: return state
   }
