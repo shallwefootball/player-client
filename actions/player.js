@@ -28,6 +28,21 @@ export const getHomeAwayPlayers = (matchId, homeClubId, awayClubId) => {
   }
 }
 
+export const updatePlayers = (clubId, players) => {
+  return dispatch => {
+    return fetch(url, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({clubId: clubId, players: players})
+    })
+    .then(res => (res.json())).then( resJson => {
+      return resJson
+    })
+  }
+}
+
 const getMatchPlayersOfAClub = (matchId, clubId) => {
   return fetch(url + matchId + '/' + clubId, { method: 'get' })
     .then(res => (res.json())).then( ({players}) => {

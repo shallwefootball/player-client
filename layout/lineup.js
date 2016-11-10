@@ -29,6 +29,7 @@ class LineupLayout extends Component {
 
   handleChangeSub(sub) {
 
+
     const { players } = this.props.player
 
     for (let i = 11; i < players.length; i++) {
@@ -46,42 +47,59 @@ class LineupLayout extends Component {
 
     const { actions, club } = this.props
 
-    this._arangeFormation(formation)
+    this._arrangeFormation(formation, this._getSubCount())
 
     club.formation = formation
     actions.setClub(club)
   }
 
   handleDropPlayer() {
-    this._arangeFormation(this.props.club.formation)
+    this._arrangeFormation(this.props.club.formation, this._getSubCount())
   }
 
-  _arangeFormation(formation) {
+  handleClickSave() {
+    const { player, actions, club} = this.props
+    actions.updatePlayers(club.clubId, player.players)
+    .then(res => {
+      if(res.message == 'success') alert('save success')
+    })
+  }
 
-    const { players } = this.props.player
+  _arrangeFormation(formation, subCount) {
+
+    let { players } = this.props.player
 
     let formationCount = formation.split('-')
     const dfCount = Number.parseInt(formationCount[0])
-    const mfCount = dfCount + Number.parseInt(formationCount[1])
-    const fwCount = mfCount + Number.parseInt(formationCount[2])
+    const mfCount = Number.parseInt(formationCount[1])
+    const fwCount = Number.parseInt(formationCount[2])
 
-    players[0].matchPosition = 'GK'
-    let i = 1
-    while(i < 11) {
-      if (i <= dfCount) players[i].matchPosition = 'DF'
-      if (dfCount < i && i <= mfCount) players[i].matchPosition = 'MF'
-      if (mfCount < i) players[i].matchPosition = 'FW'
-      i++
-    }
+    players = players.map((player, i) => {
+      if(i < 11) player.status = 'starting'
+      if(10 < i && i < (11 + subCount)) player.status = 'sub'
+      if((11 + subCount) < i) player.status = 'excepted'
+      return player
+    })
+
+    let gkArr = players.splice(0, 1).map(player => {player.matchPosition = 'GK'; return player})
+    let dfArr = players.splice(0, dfCount).map(player => {player.matchPosition = 'DF'; return player})
+    let mfArr = players.splice(0, mfCount).map(player => {player.matchPosition = 'MF'; return player})
+    let fwArr = players.splice(0, fwCount).map(player => {player.matchPosition = 'FW'; return player})
+
+    players = gkArr.concat(dfArr, mfArr, fwArr, players)
 
     this.props.actions.setPlayers(players)
+  }
+
+  _getSubCount() {
+    return this.props.player.players.filter(player => (player.status == 'sub')).length
   }
 
   render() {
 
     const { match, club, player, actions } = this.props
 
-    const subPlayer = player.players.filter(player => (player.status == 'sub'))
+    const subCount = this._getSubCount()
 
     return (
       <div>
@@ -97,14 +115,17 @@ class LineupLayout extends Component {
         />
 
         <SubCounts
-          subCount={subPlayer.length}
+          subCount={subCount}
           onChangeSubCount={this.handleChangeSub.bind(this)}
         />
+
+        <Button onClick={this.handleClickSave.bind(this)}>save</Button>
+        <Button> 제출 </Button>
 
         <LineupPlayers
           player={player}
           actions={actions}
-          subCount={subPlayer.length}
+          subCount={subCount}
           onDropPlayer={this.handleDropPlayer.bind(this)}
         />
       </div>

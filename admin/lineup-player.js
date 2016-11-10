@@ -6,7 +6,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import Label from 'react-bootstrap/lib/Label'
 import Badge from 'react-bootstrap/lib/Badge'
 
-import PositionButton from './position-button'
+import PositionSelect from './position-select'
 
 const style = {
   border: '1px dashed gray',
@@ -107,7 +107,7 @@ class LineupPlayer extends Component {
 
     if(index > (subCount - 1)) return <Label bsStyle={positionColor}>{position}</Label>
     return (
-      <PositionButton
+      <PositionSelect
         matchPosition={position}
         onChangePosition={this.handleChangePosition.bind(this)}
       />
