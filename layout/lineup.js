@@ -12,7 +12,7 @@ import LineupPlayers from '../admin/lineup-players'
 import SubCounts from '../admin/sub-counts'
 import FormationSelect from '../admin/formation-select'
 
-class Lineup extends Component {
+class LineupLayout extends Component {
 
 
   constructor(props) {
@@ -128,4 +128,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Lineup)
+)(LineupLayout)
