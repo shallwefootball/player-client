@@ -12,8 +12,9 @@ import LineupPlayers from '../admin/lineup-players'
 import SubCounts from '../admin/sub-counts'
 import FormationSelect from '../admin/formation-select'
 
-class LineupLayout extends Component {
+import UserSearch from '../components/user-search'
 
+class LineupLayout extends Component {
 
   constructor(props) {
     super(props)
@@ -53,6 +54,11 @@ class LineupLayout extends Component {
     let players = this._reArrangedPositionPlayers(player.players, club.formation)
     players = this._getReArrangedStatusPlayers(players, this._getSubCount(players))
     this.props.actions.setPlayers(players)
+  }
+
+  handleAddUser(userId) {
+
+    // actions.setPlayerToClub
   }
 
   handleClickSave() {
@@ -115,8 +121,7 @@ class LineupLayout extends Component {
 
   render() {
 
-    const { match, club, player, actions } = this.props
-
+    const { match, club, player, user, actions } = this.props
     const subCount = this._getSubCount(player.players)
 
     return (
@@ -138,6 +143,12 @@ class LineupLayout extends Component {
           onChangeSubCount={this.handleChangeSub.bind(this)}
         />
 
+        <UserSearch
+          actions={actions}
+          user={user}
+          onAddUser={this.handleAddUser.bind(this)}
+        />
+
         <Button onClick={this.handleClickSave.bind(this)}>save</Button>
         <Button onClick={this.handleClickSubmit.bind(this)}>제출</Button>
 
@@ -155,8 +166,8 @@ class LineupLayout extends Component {
 
 const mapStateToProps = (state, ownState) => {
 
-  const { match, club, player } = state
-  return { match, club, player }
+  const { match, club, player, user } = state
+  return { match, club, player, user }
 }
 
 const mapDispatchToProps = dispatch => {
