@@ -57,19 +57,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ClubLink)
-
-
-
-        // {
-        //   this.props.team.teams.map(team => {
-        //     return (
-        //       <div key={team.teamId}>
-        //         <Button
-        //           href={'/lineup?teamId=' + team.teamId}
-        //         >
-        //           {team.teamName}
-        //         </Button>
-        //       </div>
-        //     )
-        //   })
-        // }

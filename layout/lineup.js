@@ -27,20 +27,21 @@ class LineupLayout extends Component {
     actions.getPlayers(clubId)
   }
 
-  handleChangeSub(sub) {
-
+  handleChangeSub(subCount) {
 
     const { players } = this.props.player
 
-    for (let i = 11; i < players.length; i++) {
-      players[i].status = 'excepted'
-    }
+    const starting = players.splice(0, 11)
+    const sub = players.splice(0, subCount).map(player => {
+      player.status = 'sub'
+      return player
+    })
+    const excepted = players.map(player => {
+      player.status = 'excepted'
+      return player
+    })
 
-    for (let i = 0; i < sub; i++) {
-      players[11 + i].status = 'sub'
-    }
-
-    this.props.actions.setPlayers(players)
+    this.props.actions.setPlayers([...starting, ...sub, ...excepted])
   }
 
   handleChangeFormation(formation) {
