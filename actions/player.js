@@ -4,13 +4,14 @@ import { dev } from '../config'
 import CONST from '../constraint'
 
 const url = dev.apiUrl + '/players/'
+const playerUrl = dev.apiUrl + '/player'
 
 
 export const getPlayers = clubId => {
 
   return dispatch => {
     fetch(url + clubId, { method: 'get' })
-      .then(res => (res.json())).then( ({players}) => {
+      .then(res => (res.json())).then(({ players }) => {
         return dispatch(setPlayers(players))
       })
   }
@@ -43,9 +44,24 @@ export const updatePlayers = (clubId, players) => {
   }
 }
 
+export const setPlayerToClub = (userId, leagueId, clubId) => {
+  return dispatch => {
+    return fetch(playerUrl, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId: userId, leagueId: leagueId, clubId: clubId })
+    })
+    .then(res => (res.json())).then(({ players }) => {
+      return dispatch(setPlayers(players))
+    })
+  }
+}
+
 const getMatchPlayersOfAClub = (matchId, clubId) => {
   return fetch(url + matchId + '/' + clubId, { method: 'get' })
-    .then(res => (res.json())).then( ({players}) => {
+    .then(res => (res.json())).then(({ players }) => {
       return players
     })
 }

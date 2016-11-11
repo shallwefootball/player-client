@@ -58,7 +58,9 @@ class LineupLayout extends Component {
 
   handleAddUser(userId) {
 
-    // actions.setPlayerToClub
+    const { clubId, leagueId } = this.props.url.query
+
+    this.props.actions.setPlayerToClub(userId, leagueId, clubId)
   }
 
   handleClickSave() {
