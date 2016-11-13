@@ -22,7 +22,7 @@ class RecordLayout extends Component {
       })
   }
   render() {
-    console.log('this.props.match  : ', this.props)
+    // console.log('this.props.match  : ', this.props)
     return (
       <div>
         <Header />

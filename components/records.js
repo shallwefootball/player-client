@@ -6,16 +6,33 @@ import Button from 'react-bootstrap/lib/Button'
 
 export default class Records extends Component {
   render() {
+
+    const groupRecords = this.props.records.reduce((prev, next) => {
+      if(next.recordName == 'out') {
+        prev[prev.length - 1].push(next)
+        return prev
+      }
+
+      prev.push([next])
+      return prev
+    }, [])
+
     return (
       <div style={{flex: 1}}>
         <ListGroup>
           {
-            this.props.records.map(record => {
+            groupRecords.map((records, i) => {
 
-              const { playerName, recordName, minutes } = record
               return (
-                <ListGroupItem key={record.recordId}>
-                  {minutes} - {recordName} {playerName}
+                <ListGroupItem key={'records_' + i}>
+                {
+                  records.map(record => {
+                    const { playerName, recordName, minutes } = record
+                    return (
+                      <p key={record.recordId}>{minutes} - {recordName} {playerName} </p>
+                    )
+                  })
+                }
                 </ListGroupItem>
               )
             })
