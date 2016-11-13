@@ -4,7 +4,7 @@ import { dev } from '../config'
 import CONST from '../constraint'
 
 const recordsUrl = dev.apiUrl + '/records/'
-const recordUrl = dev.apiUrl + '/record'
+const recordUrl = dev.apiUrl + '/record/'
 
 export const getRecords = matchId => {
 
@@ -38,6 +38,15 @@ export const setRecord = ({lineupId, time, minutes, recordName}) => {
   }
 }
 
+export const deleteRecord = recordId => {
+  return dispatch => {
+
+    return fetch(recordUrl + recordId, { method: 'delete' })
+    .then(res => (res.json())).then( resJson => {
+      return resJson
+    })
+  }
+}
 
 const setRecords = records => {
   return {

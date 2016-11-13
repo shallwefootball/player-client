@@ -10,6 +10,7 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import Radio from 'react-bootstrap/lib/Radio'
 
 import RecordPlayer from './record-player'
+import RecordModal from './record-modal'
 
 export default class RecordPlayers extends Component {
 
@@ -17,32 +18,31 @@ export default class RecordPlayers extends Component {
     super(props)
     this.state = {
       recordModalShown: false,
+      lineupId: '',
       playerName: '',
       matchPosition: '',
-      squadNumber: '',
-      recordName: '',
-      minutes: '',
-      time: ''
+      squadNumber: ''
     }
   }
 
-  handleClickShowModal({lineupId, playerId, playerName, matchPosition, squadNumber}) {
+  handleClickShowModal({lineupId, playerName, matchPosition, squadNumber}) {
     this.setState({
       recordModalShown: true,
       lineupId,
-      playerId,
       playerName,
       matchPosition,
       squadNumber
     })
   }
+  handleClickClose() {
+    this._close()
+  }
 
-  handleClickRecord(e) {
+  handleClickRecord({time, minutes, recordName}) {
 
-    const { lineupId, time, minutes, recordName } = this.state
     const { actions, url } = this.props
     let record = {
-      lineupId,
+      lineupId: this.state.lineupId,
       time,
       minutes,
       recordName
@@ -50,30 +50,9 @@ export default class RecordPlayers extends Component {
 
     actions.setRecord(record)
     .then(res => {
-      actions(url.query.matchId)
+      actions.getRecords(url.query.matchId)
     })
     this._close()
-  }
-  handleHide() {
-    this._close()
-  }
-  handleClickClose() {
-    this._close()
-  }
-  handleChangeMinutes(e) {
-    this.setState({
-      minutes: e.target.value
-    })
-  }
-  handleChangeTime(e) {
-    this.setState({
-      time: e.target.value
-    })
-  }
-  handleChangeRecord(e) {
-    this.setState({
-      recordName: e.target.value
-    })
   }
 
   _close() {
@@ -84,7 +63,7 @@ export default class RecordPlayers extends Component {
 
   render() {
 
-    const { playerName, squadNumber, matchPosition } = this.state
+    const { lineupId, playerName, squadNumber, matchPosition } = this.state
 
     return (
       <div style={{flex: 1}}>
@@ -102,55 +81,65 @@ export default class RecordPlayers extends Component {
           }
         </ListGroup>
 
-        <Modal show={this.state.recordModalShown} onHide={this.handleHide.bind(this)}>
-          <Modal.Header closeButton>
-            <Modal.Title>{squadNumber} {matchPosition} - {playerName}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FormGroup controlId="formBasicText">
-              <ControlLabel>시간</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter minutes"
-                onChange={this.handleChangeMinutes.bind(this)}
-              />
-            </FormGroup>
+        <RecordModal
+          shown={this.state.recordModalShown}
+          lineupId={lineupId}
+          squadNumber={squadNumber}
+          matchPosition={matchPosition}
+          playerName={playerName}
+          onClickClose={this.handleClickClose.bind(this)}
+          onClickRecord={this.handleClickRecord.bind(this)}
+        />
 
-            <FormGroup
-              onChange={this.handleChangeTime.bind(this)}
-            >
-              <Radio name="time" inline value="firstHalf">전반</Radio>
-              {' '}
-              <Radio name="time" inline value="halfTime">하프타임</Radio>
-              {' '}
-              <Radio name="time" inline value="secondHalf">후반</Radio>
-            </FormGroup>
-
-            <FormGroup
-              onChange={this.handleChangeRecord.bind(this)}
-            >
-              <Radio name="record" value="goalScored">득점</Radio>
-              {' '}
-              <Radio name="record" value="ownGoal">자책골</Radio>
-              {' '}
-              <Radio name="record" value="penaltyScored">패널티골</Radio>
-              {' '}
-              <Radio name="record" value="penaltyMissed">패널티실축</Radio>
-              {' '}
-              <Radio name="record" value="redCard">레드카드</Radio>
-              {' '}
-              <Radio name="record" value="yellowCard">옐로카드</Radio>
-              {' '}
-              <Radio name="record" value="secondYellowCard">Y2카드</Radio>
-            </FormGroup>
-
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClickClose.bind(this)}>Close</Button>
-            <Button onClick={this.handleClickRecord.bind(this)}>Record</Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     )
   }
 }
+        // <Modal show={this.state.recordModalShown} onHide={this.handleHide.bind(this)}>
+        //   <Modal.Header closeButton>
+        //     <Modal.Title>{squadNumber} {matchPosition} - {playerName}</Modal.Title>
+        //   </Modal.Header>
+        //   <Modal.Body>
+        //     <FormGroup controlId="formBasicText">
+        //       <ControlLabel>시간</ControlLabel>
+        //       <FormControl
+        //         type="text"
+        //         placeholder="Enter minutes"
+        //         onChange={this.handleChangeMinutes.bind(this)}
+        //       />
+        //     </FormGroup>
+
+        //     <FormGroup
+        //       onChange={this.handleChangeTime.bind(this)}
+        //     >
+        //       <Radio name="time" inline value="firstHalf">전반</Radio>
+        //       {' '}
+        //       <Radio name="time" inline value="halfTime">하프타임</Radio>
+        //       {' '}
+        //       <Radio name="time" inline value="secondHalf">후반</Radio>
+        //     </FormGroup>
+
+        //     <FormGroup
+        //       onChange={this.handleChangeRecord.bind(this)}
+        //     >
+        //       <Radio name="record" value="goalScored">득점</Radio>
+        //       {' '}
+        //       <Radio name="record" value="ownGoal">자책골</Radio>
+        //       {' '}
+        //       <Radio name="record" value="penaltyScored">패널티골</Radio>
+        //       {' '}
+        //       <Radio name="record" value="penaltyMissed">패널티실축</Radio>
+        //       {' '}
+        //       <Radio name="record" value="redCard">레드카드</Radio>
+        //       {' '}
+        //       <Radio name="record" value="yellowCard">옐로카드</Radio>
+        //       {' '}
+        //       <Radio name="record" value="secondYellowCard">Y2카드</Radio>
+        //     </FormGroup>
+
+        //   </Modal.Body>
+        //   <Modal.Footer>
+        //     <Button onClick={this.handleClickClose.bind(this)}>Close</Button>
+        //     <Button onClick={this.handleClickRecord.bind(this)}>Record</Button>
+        //   </Modal.Footer>
+        // </Modal>

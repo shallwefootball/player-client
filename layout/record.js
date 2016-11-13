@@ -35,7 +35,7 @@ class RecordLayout extends Component {
             url={url}
             actions={actions}
           />
-          <Records records={record.records} />
+          <Records records={record.records} actions={actions} url={url} />
           <RecordPlayers
             players={player.away}
             url={url}
