@@ -38,7 +38,9 @@ export default class RecordPlayers extends Component {
   }
 
   handleClickRecord(e) {
-    const {lineupId, time, minutes, recordName}
+
+    const { lineupId, time, minutes, recordName } = this.state
+    const { actions, url } = this.props
     let record = {
       lineupId,
       time,
@@ -46,7 +48,10 @@ export default class RecordPlayers extends Component {
       recordName
     }
 
-    console.log('record   : ', record)
+    actions.setRecord(record)
+    .then(res => {
+      actions(url.query.matchId)
+    })
     this._close()
   }
   handleHide() {

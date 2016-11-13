@@ -13,9 +13,9 @@ export default class Records extends Component {
         return prev
       }
 
-      prev.push([next])
+      prev.push(new Array(next))
       return prev
-    }, [])
+    }, new Array())
 
     return (
       <div style={{flex: 1}}>

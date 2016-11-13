@@ -3,30 +3,33 @@ import fetch from 'isomorphic-fetch'
 import { dev } from '../config'
 import CONST from '../constraint'
 
-const url = dev.apiUrl + '/records/'
-
+const recordsUrl = dev.apiUrl + '/records/'
+const recordUrl = dev.apiUrl + '/record'
 
 export const getRecords = matchId => {
 
   return dispatch => {
 
-    fetch(url + matchId, { method: 'get' })
+    fetch(recordsUrl + matchId, { method: 'get' })
     .then(res => (res.json())).then( ({records}) => {
       return dispatch(setRecords(records))
     })
   }
 }
 
-export const setRecord = () => {
+export const setRecord = ({lineupId, time, minutes, recordName}) => {
+
   return dispatch => {
-    return fetch(url, {
+    return fetch(recordUrl, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        matchId: matchId,
-        players: players
+        lineupId,
+        time,
+        minutes,
+        recordName
       })
     })
     .then(res => (res.json())).then( resJson => {

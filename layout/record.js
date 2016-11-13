@@ -23,17 +23,23 @@ class RecordLayout extends Component {
   }
   render() {
     // console.log('this.props.player.home  : ', this.props.player.home)
+
+    const { match, player, record, url, actions } = this.props
     return (
       <div>
         <Header />
-        <Scoreboard match={this.props.match}/>
+        <Scoreboard match={match}/>
         <div style={{display: 'flex'}}>
           <RecordPlayers
-            players={this.props.player.home}
+            players={player.home}
+            url={url}
+            actions={actions}
           />
-          <Records records={this.props.record.records} />
+          <Records records={record.records} />
           <RecordPlayers
-            players={this.props.player.away}
+            players={player.away}
+            url={url}
+            actions={actions}
           />
         </div>
       </div>
