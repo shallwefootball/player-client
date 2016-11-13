@@ -25,9 +25,9 @@ export default class RecordPlayer extends Component {
 
   render() {
 
-    const { player } = this.props
+    const { player, disabled } = this.props
     return (
-      <ListGroupItem key={player.playerId}>
+      <ListGroupItem key={player.playerId} disabled={disabled}>
         {player.matchPosition} {player.squadNumber} - {player.playerName}
         {" "}
         <Button

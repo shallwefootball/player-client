@@ -34,9 +34,7 @@ export default class RecordPlayers extends Component {
       squadNumber
     })
   }
-  handleClickClose() {
-    this._close()
-  }
+  handleClickClose() { this._close() }
 
   handleClickRecord({time, minutes, recordName}) {
 
@@ -69,9 +67,11 @@ export default class RecordPlayers extends Component {
       <div style={{flex: 1}}>
         <ListGroup>
           {
-            this.props.players.map(player => {
+            this.props.players.map((player, i) => {
+              const disabled = 10 < i ? true : false
               return (
                 <RecordPlayer
+                  disabled={disabled}
                   key={player.playerId}
                   player={player}
                   onClickRecord={this.handleClickShowModal.bind(this)}
@@ -95,51 +95,3 @@ export default class RecordPlayers extends Component {
     )
   }
 }
-        // <Modal show={this.state.recordModalShown} onHide={this.handleHide.bind(this)}>
-        //   <Modal.Header closeButton>
-        //     <Modal.Title>{squadNumber} {matchPosition} - {playerName}</Modal.Title>
-        //   </Modal.Header>
-        //   <Modal.Body>
-        //     <FormGroup controlId="formBasicText">
-        //       <ControlLabel>시간</ControlLabel>
-        //       <FormControl
-        //         type="text"
-        //         placeholder="Enter minutes"
-        //         onChange={this.handleChangeMinutes.bind(this)}
-        //       />
-        //     </FormGroup>
-
-        //     <FormGroup
-        //       onChange={this.handleChangeTime.bind(this)}
-        //     >
-        //       <Radio name="time" inline value="firstHalf">전반</Radio>
-        //       {' '}
-        //       <Radio name="time" inline value="halfTime">하프타임</Radio>
-        //       {' '}
-        //       <Radio name="time" inline value="secondHalf">후반</Radio>
-        //     </FormGroup>
-
-        //     <FormGroup
-        //       onChange={this.handleChangeRecord.bind(this)}
-        //     >
-        //       <Radio name="record" value="goalScored">득점</Radio>
-        //       {' '}
-        //       <Radio name="record" value="ownGoal">자책골</Radio>
-        //       {' '}
-        //       <Radio name="record" value="penaltyScored">패널티골</Radio>
-        //       {' '}
-        //       <Radio name="record" value="penaltyMissed">패널티실축</Radio>
-        //       {' '}
-        //       <Radio name="record" value="redCard">레드카드</Radio>
-        //       {' '}
-        //       <Radio name="record" value="yellowCard">옐로카드</Radio>
-        //       {' '}
-        //       <Radio name="record" value="secondYellowCard">Y2카드</Radio>
-        //     </FormGroup>
-
-        //   </Modal.Body>
-        //   <Modal.Footer>
-        //     <Button onClick={this.handleClickClose.bind(this)}>Close</Button>
-        //     <Button onClick={this.handleClickRecord.bind(this)}>Record</Button>
-        //   </Modal.Footer>
-        // </Modal>
