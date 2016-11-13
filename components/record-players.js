@@ -21,13 +21,15 @@ export default class RecordPlayers extends Component {
       matchPosition: '',
       squadNumber: '',
       recordName: '',
-      minutes: ''
+      minutes: '',
+      time: ''
     }
   }
 
-  handleClickShowModal({playerId, playerName, matchPosition, squadNumber}) {
+  handleClickShowModal({lineupId, playerId, playerName, matchPosition, squadNumber}) {
     this.setState({
       recordModalShown: true,
+      lineupId,
       playerId,
       playerName,
       matchPosition,
@@ -35,14 +37,16 @@ export default class RecordPlayers extends Component {
     })
   }
 
-  handleChangeRecord(e) {
-    this.setState({
-      recordName: e.target.value
-    })
-  }
-
   handleClickRecord(e) {
-    console.log('record..', this.state)
+    const {lineupId, time, minutes, recordName}
+    let record = {
+      lineupId,
+      time,
+      minutes,
+      recordName
+    }
+
+    console.log('record   : ', record)
     this._close()
   }
   handleHide() {
@@ -51,9 +55,19 @@ export default class RecordPlayers extends Component {
   handleClickClose() {
     this._close()
   }
-  handleChangeTime(e) {
+  handleChangeMinutes(e) {
     this.setState({
       minutes: e.target.value
+    })
+  }
+  handleChangeTime(e) {
+    this.setState({
+      time: e.target.value
+    })
+  }
+  handleChangeRecord(e) {
+    this.setState({
+      recordName: e.target.value
     })
   }
 
@@ -93,8 +107,18 @@ export default class RecordPlayers extends Component {
               <FormControl
                 type="text"
                 placeholder="Enter minutes"
-                onChange={this.handleChangeTime.bind(this)}
+                onChange={this.handleChangeMinutes.bind(this)}
               />
+            </FormGroup>
+
+            <FormGroup
+              onChange={this.handleChangeTime.bind(this)}
+            >
+              <Radio name="time" inline value="firstHalf">전반</Radio>
+              {' '}
+              <Radio name="time" inline value="halfTime">하프타임</Radio>
+              {' '}
+              <Radio name="time" inline value="secondHalf">후반</Radio>
             </FormGroup>
 
             <FormGroup

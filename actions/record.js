@@ -17,6 +17,24 @@ export const getRecords = matchId => {
   }
 }
 
+export const setRecord = () => {
+  return dispatch => {
+    return fetch(url, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        matchId: matchId,
+        players: players
+      })
+    })
+    .then(res => (res.json())).then( resJson => {
+      return resJson
+    })
+  }
+}
+
 
 const setRecords = records => {
   return {
