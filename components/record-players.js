@@ -19,6 +19,7 @@ export default class RecordPlayers extends Component {
     super(props)
     this.state = {
       recordModalShown: false,
+      subMode: false,
       lineupId: '',
       playerName: '',
       matchPosition: '',
@@ -26,9 +27,10 @@ export default class RecordPlayers extends Component {
     }
   }
 
-  handleClickShowModal({lineupId, playerName, matchPosition, squadNumber}) {
+  handleClickShowModal({lineupId, playerName, matchPosition, squadNumber}, { subMode }) {
     this.setState({
       recordModalShown: true,
+      subMode,
       lineupId,
       playerName,
       matchPosition,
@@ -37,15 +39,11 @@ export default class RecordPlayers extends Component {
   }
   handleClickClose() { this._close() }
 
-  handleClickRecord({time, minutes, recordName}) {
+  handleClickRecord(record) {
 
     const { actions, url } = this.props
-    let record = {
-      lineupId: this.state.lineupId,
-      time,
-      minutes,
-      recordName
-    }
+
+    record.lineupId = this.state.lineupId
 
     actions.setRecord(record)
     .then(res => {
@@ -76,7 +74,7 @@ export default class RecordPlayers extends Component {
 
   render() {
 
-    const { lineupId, playerName, squadNumber, matchPosition } = this.state
+    const { lineupId, playerName, squadNumber, matchPosition, subMode } = this.state
     const { players } = this.props
 
     const starting = players.slice(0, 11)
@@ -108,6 +106,8 @@ export default class RecordPlayers extends Component {
           squadNumber={squadNumber}
           matchPosition={matchPosition}
           playerName={playerName}
+          subMode={subMode}
+          subPlayers={sub}
           onClickClose={this.handleClickClose.bind(this)}
           onClickRecord={this.handleClickRecord.bind(this)}
         />

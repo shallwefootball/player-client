@@ -17,7 +17,7 @@ export const getRecords = matchId => {
   }
 }
 
-export const setRecord = ({lineupId, time, minutes, recordName}) => {
+export const setRecord = record => {
 
   return dispatch => {
     return fetch(recordUrl, {
@@ -25,12 +25,7 @@ export const setRecord = ({lineupId, time, minutes, recordName}) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        lineupId,
-        time,
-        minutes,
-        recordName
-      })
+      body: JSON.stringify(record)
     })
     .then(res => (res.json())).then( resJson => {
       return resJson

@@ -16,7 +16,8 @@ export default class RecordPlayers extends Component {
     this.state = {
       recordName: '',
       minutes: '',
-      time: ''
+      time: '',
+      subLineupId: ''
     }
   }
   handleChangeMinutes(e) {
@@ -34,6 +35,12 @@ export default class RecordPlayers extends Component {
       recordName: e.target.value
     })
   }
+  handleChangeSub(e) {
+    this.setState({
+      recordName: 'sub',
+      subLineupId: e.target.value
+    })
+  }
 
   handleClickRecord() {
     this.props.onClickRecord(this.state)
@@ -45,9 +52,41 @@ export default class RecordPlayers extends Component {
     this.props.onClickClose()
   }
 
+  _renderRecords() {
+    return (
+      <FormGroup onChange={this.handleChangeRecord.bind(this)}>
+        <Radio name="record" value="goalScored">득점</Radio>
+        <Radio name="record" value="ownGoal">자책골</Radio>
+        <Radio name="record" value="penaltyScored">패널티골</Radio>
+        <Radio name="record" value="penaltyMissed">패널티실축</Radio>
+        <Radio name="record" value="redCard">레드카드</Radio>
+        <Radio name="record" value="yellowCard">옐로카드</Radio>
+        <Radio name="record" value="secondYellowCard">Y2카드</Radio>
+      </FormGroup>
+    )
+  }
+
+  _renderSub(players) {
+
+    return (
+      <FormGroup onChange={this.handleChangeSub.bind(this)} >
+        {
+          players.map(player => {
+            if (player.subed) return
+            return (
+              <Radio name="sub" value={player.lineupId} key={player.lineupId}>
+                {player.matchPosition} {player.squadNumber} - {player.playerName}
+              </Radio>
+            )
+          })
+        }
+      </FormGroup>
+    )
+  }
+
   render() {
 
-    const { playerName, squadNumber, matchPosition, shown } = this.props
+    const { playerName, squadNumber, matchPosition, shown, subMode, subPlayers } = this.props
 
     return (
       <Modal show={shown} onHide={this.handleHide.bind(this)}>
@@ -64,9 +103,7 @@ export default class RecordPlayers extends Component {
             />
           </FormGroup>
 
-          <FormGroup
-            onChange={this.handleChangeTime.bind(this)}
-          >
+          <FormGroup onChange={this.handleChangeTime.bind(this)} >
             <Radio name="time" inline value="firstHalf">전반</Radio>
             {' '}
             <Radio name="time" inline value="halfTime">하프타임</Radio>
@@ -74,23 +111,7 @@ export default class RecordPlayers extends Component {
             <Radio name="time" inline value="secondHalf">후반</Radio>
           </FormGroup>
 
-          <FormGroup
-            onChange={this.handleChangeRecord.bind(this)}
-          >
-            <Radio name="record" value="goalScored">득점</Radio>
-            {' '}
-            <Radio name="record" value="ownGoal">자책골</Radio>
-            {' '}
-            <Radio name="record" value="penaltyScored">패널티골</Radio>
-            {' '}
-            <Radio name="record" value="penaltyMissed">패널티실축</Radio>
-            {' '}
-            <Radio name="record" value="redCard">레드카드</Radio>
-            {' '}
-            <Radio name="record" value="yellowCard">옐로카드</Radio>
-            {' '}
-            <Radio name="record" value="secondYellowCard">Y2카드</Radio>
-          </FormGroup>
+          {subMode ? this._renderSub(subPlayers) : this._renderRecords()}
 
         </Modal.Body>
         <Modal.Footer>

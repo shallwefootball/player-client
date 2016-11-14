@@ -19,7 +19,8 @@ export default class RecordPlayer extends Component {
   }
 
   handleClickRecord(e) {
-    this.props.onClickRecord(this.state.player)
+    const subMode = e.target.value == 'sub' ? true : false
+    this.props.onClickRecord(this.state.player, { subMode })
   }
 
 
@@ -36,11 +37,20 @@ export default class RecordPlayer extends Component {
           bsSize="xsmall"
           onClick={this.handleClickRecord.bind(this)}
           disabled={subed}
+          value="record"
         >
           기록
         </Button>
         {" "}
-        <Button bsStyle="default" bsSize="xsmall" disabled={subed}>교체</Button>
+        <Button
+          bsStyle="default"
+          bsSize="xsmall"
+          onClick={this.handleClickRecord.bind(this)}
+          disabled={subed}
+          value="sub"
+        >
+          교체
+        </Button>
       </ListGroupItem>
     )
   }
