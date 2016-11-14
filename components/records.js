@@ -8,13 +8,29 @@ export default class Records extends Component {
 
   handleClickDelete(e) {
     const { actions, url } = this.props
+
+    const recordIds = e.target.value.split(',')
+
     if(confirm('삭제할건가여?')) {
-      // console.log('remove')
-      actions.deleteRecord(e.target.value)
+
+      Promise.all(recordIds.map(recordId => (recordId ? actions.deleteRecord(recordId) : null)))
         .then(() => {
           actions.getRecords(url.query.matchId)
         })
     }
+  }
+
+  _renderDeleteButton(record, nextRecord) {
+
+    return (
+      <Button
+        bsSize="xsmall"
+        value={[record.recordId, nextRecord ? nextRecord.recordId : null]}
+        onClick={this.handleClickDelete.bind(this)}
+      >
+        삭제
+      </Button>
+    )
   }
 
   render() {
@@ -35,23 +51,17 @@ export default class Records extends Component {
           {
             groupRecords.map((records, i) => {
 
+
               return (
                 <ListGroupItem key={'records_' + i}>
                 {
-                  records.map(record => {
-                    // console.log('record  : ', record)
+                  records.map((record, index) => {
                     const { playerName, recordName, minutes } = record
                     return (
                       <p key={record.recordId}>
                         {minutes} - {recordName} {playerName}
                         {' '}
-                        <Button
-                          bsSize="xsmall"
-                          value={record.recordId}
-                          onClick={this.handleClickDelete.bind(this)}
-                        >
-                          삭제
-                        </Button>
+                        {index ? null : this._renderDeleteButton(record, records[index + 1])}
                       </p>
                     )
                   })
