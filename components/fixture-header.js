@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/lib/Button'
 
 import style from 'next/css'
 
-import config from '../config'
+import { dev } from '../config'
 
-const url = config.dev.apiUrl
+const url = dev.host
 
 const hoverStyle = style({
   ':hover': {

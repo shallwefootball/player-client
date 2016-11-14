@@ -1,13 +1,11 @@
 import fetch from 'isomorphic-fetch'
 
-import { dev } from '../config'
+import { apiUrl } from '../config'
 // import CONST from '../constraint'
-
-const url = dev.apiUrl + '/lineup/'
 
 export const insertLineup = (matchId, players) => {
   return dispatch => {
-    return fetch(url, {
+    return fetch(apiUrl.getLineup(), {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

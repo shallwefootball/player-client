@@ -11,7 +11,7 @@ class LeagueLink extends Component {
 
   constructor(props) {
     super(props)
-    console.log("props  : ", props)
+    // console.log("props  : ", props)
   }
 
   componentDidMount() {

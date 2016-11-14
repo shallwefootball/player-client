@@ -1,16 +1,12 @@
 import fetch from 'isomorphic-fetch'
 
-import { dev } from '../config'
+import { apiUrl } from '../config'
 import CONST from '../constraint'
-
-const url = dev.apiUrl + '/players/'
-const playerUrl = dev.apiUrl + '/player'
-
 
 export const getPlayers = clubId => {
 
   return dispatch => {
-    fetch(url + clubId, { method: 'get' })
+    fetch(apiUrl.getPlayersClubId({ clubId }), { method: 'get' })
       .then(res => (res.json())).then(({ players }) => {
         return dispatch(setPlayers(players))
       })
@@ -31,7 +27,7 @@ export const getHomeAwayPlayers = (matchId, homeClubId, awayClubId) => {
 
 export const updatePlayers = (clubId, players) => {
   return dispatch => {
-    return fetch(url, {
+    return fetch(apiUrl.getPlayers(), {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +42,7 @@ export const updatePlayers = (clubId, players) => {
 
 export const setPlayerToClub = (userId, leagueId, clubId) => {
   return dispatch => {
-    return fetch(playerUrl, {
+    return fetch(apiUrl.getPlayer(), {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -60,7 +56,7 @@ export const setPlayerToClub = (userId, leagueId, clubId) => {
 }
 
 const getMatchPlayersOfAClub = (matchId, clubId) => {
-  return fetch(url + matchId + '/' + clubId, { method: 'get' })
+  return fetch(apiUrl.getPlayersMatchIdClubId({matchId, clubId}), { method: 'get' })
     .then(res => (res.json())).then(({ players }) => {
       return players
     })

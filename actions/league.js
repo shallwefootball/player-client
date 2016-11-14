@@ -1,15 +1,13 @@
 import fetch from 'isomorphic-fetch'
 
-import config from '../config'
+import { apiUrl } from '../config'
 import CONST from '../constraint'
-
-const url = config.dev.apiUrl + '/league'
 
 export const getLeagues = () => {
 
   return dispatch => {
 
-    fetch(url, {
+    fetch(apiUrl.getLeague(), {
       method: 'get'
     })
     .then(res => (res.json()))

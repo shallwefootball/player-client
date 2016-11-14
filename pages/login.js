@@ -17,8 +17,8 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import Header from '../layout/header'
 
 import CONST from '../constraint'
-import config from '../config'
-const url = config.dev.apiUrl + '/login'
+import { dev } from '../config'
+const url = dev.host + '/login'
 const ENTER_KEY = 13
 
 const head = (

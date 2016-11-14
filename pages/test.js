@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-import config from '../config'
-const url = config.dev.apiUrl + '/league'
+import { dev }from '../config'
+const url = dev.host + '/league'
 
 
 const redu = (state, action) => {

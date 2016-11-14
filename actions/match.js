@@ -1,15 +1,11 @@
 import fetch from 'isomorphic-fetch'
 
-import { dev } from '../config'
+import { apiUrl } from '../config'
 import CONST from '../constraint'
-
-const leagueUrl = dev.apiUrl + '/league/'
-const willMatchUrl = dev.apiUrl + '/will-match/'
-const matchUrl = dev.apiUrl + '/match/'
 
 export const getMatches = leagueId => {
   return dispatch => {
-    fetch(leagueUrl + leagueId, { method: 'get' })
+    fetch(apiUrl.getMatches({ leagueId }), { method: 'get' })
       .then(res => (res.json())).then(({ matches }) => {
         return dispatch(setMatches(matches))
       })
@@ -18,13 +14,12 @@ export const getMatches = leagueId => {
 
 export const getMatch = matchId => {
   return dispatch => {
-    return fetch(matchUrl + matchId, { method: 'get' })
+    return fetch(apiUrl.getMatch({ matchId }), { method: 'get' })
       .then(res => (res.json())).then(({ match })  => {
         return dispatch(setMatch(match))
       })
   }
 }
-
 
 const setMatches = matches => {
   return {
@@ -42,7 +37,7 @@ const setMatch = match => {
 
 export const getWillMatch = (leagueId, clubId) => {
   return dispatch => {
-    fetch(willMatchUrl + leagueId + '/' + clubId, { method: 'get' })
+    fetch(apiUrl.getWillMatch({ leagueId, clubId }), { method: 'get' })
       .then(res => {return res.json()})
       .then(({ matches }) => {
         return dispatch(setMatches(matches))

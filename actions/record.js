@@ -1,16 +1,13 @@
 import fetch from 'isomorphic-fetch'
 
-import { dev } from '../config'
+import { apiUrl } from '../config'
 import CONST from '../constraint'
-
-const recordsUrl = dev.apiUrl + '/records/'
-const recordUrl = dev.apiUrl + '/record/'
 
 export const getRecords = matchId => {
 
   return dispatch => {
 
-    fetch(recordsUrl + matchId, { method: 'get' })
+    fetch(apiUrl.getRecords({ matchId }), { method: 'get' })
     .then(res => (res.json())).then( ({records}) => {
       return dispatch(setRecords(records))
     })
@@ -20,7 +17,7 @@ export const getRecords = matchId => {
 export const setRecord = record => {
 
   return dispatch => {
-    return fetch(recordUrl, {
+    return fetch(apiUrl.getRecord(), {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +33,7 @@ export const setRecord = record => {
 export const deleteRecord = recordId => {
   return dispatch => {
 
-    return fetch(recordUrl + recordId, { method: 'delete' })
+    return fetch(apiUrl.getRecordRecordId({ recordId }), { method: 'delete' })
     .then(res => (res.json())).then( resJson => {
       return resJson
     })
