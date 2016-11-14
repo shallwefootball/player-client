@@ -39,7 +39,7 @@ export default class Records extends Component {
                 <ListGroupItem key={'records_' + i}>
                 {
                   records.map(record => {
-                    console.log('record  : ', record)
+                    // console.log('record  : ', record)
                     const { playerName, recordName, minutes } = record
                     return (
                       <p key={record.recordId}>

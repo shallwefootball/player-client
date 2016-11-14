@@ -25,20 +25,22 @@ export default class RecordPlayer extends Component {
 
   render() {
 
-    const { player, disabled } = this.props
+    const { player, subed } = this.props
+
     return (
-      <ListGroupItem key={player.playerId} disabled={disabled}>
+      <ListGroupItem key={player.playerId} disabled={subed}>
         {player.matchPosition} {player.squadNumber} - {player.playerName}
         {" "}
         <Button
           bsStyle="default"
           bsSize="xsmall"
           onClick={this.handleClickRecord.bind(this)}
+          disabled={subed}
         >
           기록
         </Button>
         {" "}
-        <Button bsStyle="default" bsSize="xsmall">교체</Button>
+        <Button bsStyle="default" bsSize="xsmall" disabled={subed}>교체</Button>
       </ListGroupItem>
     )
   }

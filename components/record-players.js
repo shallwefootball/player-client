@@ -8,6 +8,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Radio from 'react-bootstrap/lib/Radio'
+import Panel from 'react-bootstrap/lib/Panel'
 
 import RecordPlayer from './record-player'
 import RecordModal from './record-modal'
@@ -59,27 +60,47 @@ export default class RecordPlayers extends Component {
     })
   }
 
+  _renderFooter(sub) {
+    return sub.map(player => {
+      const subed = !player.subed
+      return (
+        <RecordPlayer
+          subed={subed}
+          key={player.playerId}
+          player={player}
+          onClickRecord={this.handleClickShowModal.bind(this)}
+        />
+      )
+    })
+  }
+
   render() {
 
     const { lineupId, playerName, squadNumber, matchPosition } = this.state
+    const { players } = this.props
+
+    const starting = players.slice(0, 11)
+    const sub = players.slice(11, players.length)
 
     return (
       <div style={{flex: 1}}>
-        <ListGroup>
-          {
-            this.props.players.map((player, i) => {
-              const disabled = 10 < i ? true : false
-              return (
-                <RecordPlayer
-                  disabled={disabled}
-                  key={player.playerId}
-                  player={player}
-                  onClickRecord={this.handleClickShowModal.bind(this)}
-                />
-              )
-            })
-          }
-        </ListGroup>
+        <Panel footer={this._renderFooter(sub)}>
+          <ListGroup>
+            {
+              starting.map(player => {
+
+                return (
+                  <RecordPlayer
+                    subed={player.subed}
+                    key={player.playerId}
+                    player={player}
+                    onClickRecord={this.handleClickShowModal.bind(this)}
+                  />
+                )
+              })
+            }
+          </ListGroup>
+        </Panel>
 
         <RecordModal
           shown={this.state.recordModalShown}

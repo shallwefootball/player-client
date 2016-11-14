@@ -24,20 +24,36 @@ class RecordLayout extends Component {
   render() {
     // console.log('this.props.player.home  : ', this.props.player.home)
 
-    const { match, player, record, url, actions } = this.props
+    const { match, record, url, actions } = this.props
+
+    const home = this.props.player.home.map(player => { player.subed = false; return player })
+    const away = this.props.player.away.map(player => { player.subed = false; return player })
+
+    const subedRocord = record.records.filter(record => (record.recordName == 'in' || record.recordName == 'out'))
+
+    subedRocord.forEach(record => {
+      //
+      home.forEach(player => {
+        if(player.lineupId == record.lineupId) player.subed = true
+      })
+      away.forEach(player => {
+        if(player.lineupId == record.lineupId) player.subed = true
+      })
+    })
+
     return (
       <div>
         <Header />
         <Scoreboard match={match}/>
         <div style={{display: 'flex'}}>
           <RecordPlayers
-            players={player.home}
+            players={home}
             url={url}
             actions={actions}
           />
           <Records records={record.records} actions={actions} url={url} />
           <RecordPlayers
-            players={player.away}
+            players={away}
             url={url}
             actions={actions}
           />
