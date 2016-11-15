@@ -30,9 +30,13 @@ class RecordLayout extends Component {
     const away = this.props.player.away.map(player => { player.subed = false; return player })
 
     const subedRocord = record.records.filter(record => (record.recordName == 'in' || record.recordName == 'out'))
+    const goalScored = record.records.filter(record => (record.recordName == 'goalScored'))
+
+    const homeGoal = goalScored.filter(goal => (home.some(player => (goal.lineupId == player.lineupId))))
+    const awayGoal = goalScored.filter(goal => (away.some(player => (goal.lineupId == player.lineupId))))
 
     subedRocord.forEach(record => {
-      //
+
       home.forEach(player => {
         if(player.lineupId == record.lineupId) player.subed = true
       })
@@ -44,7 +48,7 @@ class RecordLayout extends Component {
     return (
       <div>
         <Header />
-        <Scoreboard match={match}/>
+        <Scoreboard match={match} homeGoal={homeGoal} awayGoal={awayGoal} />
         <div style={{display: 'flex'}}>
           <RecordPlayers
             players={home}
