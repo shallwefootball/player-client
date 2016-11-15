@@ -5,7 +5,6 @@ import { initStore } from '../store'
 import reducers from '../reducers'
 
 import IndexLayout from '../layout/index'
-import retina from 'retinajs'
 
 export default class Index extends Component {
 
@@ -26,7 +25,6 @@ export default class Index extends Component {
       location.href = '/'
       alert('verification email!!!')
     }
-  //   window.onload = () => (retina())
   }
 
   render() {

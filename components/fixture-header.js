@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import Link from 'next/link'
 import Button from 'react-bootstrap/lib/Button'
+import RetinaImage from 'react-retina-image'
 
 import style from 'next/css'
 
@@ -63,10 +64,9 @@ export default class MatchHeader extends Component {
           {" "}
           {this._renderWithdrawFlag(note)}
           <span style={{padding: '0 9px'}}>
-            <img
+            <RetinaImage
               src={url + '/' + (homeImageS || 'default.png') }
               style={{marginBottom: 2}}
-              data-rjs="3"
             />
             {" "}
             {homeClubName}
@@ -75,10 +75,9 @@ export default class MatchHeader extends Component {
             {" "}
             {awayClubName}
             {" "}
-            <img
+            <RetinaImage
               src={url + '/' + (awayImageS || 'default.png')}
               style={{marginBottom: 2}}
-              data-rjs="3"
             />
           </span>
 
