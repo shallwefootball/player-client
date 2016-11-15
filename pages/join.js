@@ -4,12 +4,11 @@ import { Provider } from 'react-redux'
 import { initStore } from '../store'
 import reducers from '../reducers'
 
-import IndexLayout from '../layout/index'
-import retina from 'retinajs'
+import JoinLayout from '../layout/join'
 
-export default class Index extends Component {
+export default class Record extends Component {
 
-  static getInitialProps({ req }) {
+  static getInitialProps({ req, query }) {
     const isServer = !!req
     const store = initStore(reducers, {}, isServer)
     return  { initialState: store.getState(), isServer }
@@ -20,20 +19,11 @@ export default class Index extends Component {
     this.store = initStore(reducers, props.initialState, props.isServer)
   }
 
-  componentDidMount() {
-    console.log('props  : ', this.props.url.query)
-    if(this.props.url.query.emailToken) {
-      location.href = '/'
-      alert('verification email!!!')
-    }
-  //   window.onload = () => (retina())
-  }
-
   render() {
 
     return (
       <Provider store={this.store}>
-        <IndexLayout />
+        <JoinLayout url={this.props.url} />
       </Provider>
     )
   }
