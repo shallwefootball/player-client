@@ -18,11 +18,14 @@ export default class Index extends Component {
   constructor(props) {
     super(props)
     this.store = initStore(reducers, props.initialState, props.isServer)
+    // if(props.url.query.emailToken) {
+      // alert('verification email!!!')
+    // }
   }
 
-  componentDidMount() {
-    window.onload = () => (retina())
-  }
+  // componentDidMount() {
+  //   window.onload = () => (retina())
+  // }
 
   render() {
 

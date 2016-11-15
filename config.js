@@ -1,8 +1,11 @@
 import makeUrl from 'make-url'
 import url from 'url'
 
+
+const host = typeof window == 'undefined' ? 'http://localhost:4000' : ('http://' + location.hostname + ':4000')
+
 const dev = {
-  host: 'http://localhost:4000',
+  host: host,
   imageUrl: 'http://shallwefootball.com:1000'
 }
 
