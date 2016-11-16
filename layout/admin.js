@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Header from './header'
 import LeagueLink from '../admin/league-link'
-
+import WeekGenerator from '../components/week-generator'
 
 export default class LeagueLayout extends Component {
   render() {
@@ -10,6 +10,7 @@ export default class LeagueLayout extends Component {
       <div>
         <Header />
         <LeagueLink />
+        <WeekGenerator />
       </div>
     )
   }

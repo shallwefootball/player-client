@@ -16,6 +16,9 @@ class Main extends Component {
     return (
       <div>
         <Header />
+        <div>다음 일정</div>
+        <div>개인 스텟</div>
+        <div>팀 스텟</div>
         <Link href="/admin">
           <Button>
             admin으로 가기

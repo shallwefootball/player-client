@@ -9,6 +9,7 @@ export default () => {
       <title>공찰래리그 :: 내일뭐해. 공찰래?</title>
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       <link rel='stylesheet' href='https://bootswatch.com/paper/bootstrap.min.css' />
+      <link rel='stylesheet' href='/static/react-date-picker.css' />
     </Head>
   )
 }
