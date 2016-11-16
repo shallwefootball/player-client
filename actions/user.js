@@ -7,7 +7,7 @@ export const getUsersChar = char => {
 
   return dispatch => {
 
-    fetch(apiUrl.getUers({ char }), { method: 'get' })
+    fetch(apiUrl.getUsers({ char }), { method: 'get' })
       .then(res => (res.json())).then( ({users}) => {
         return dispatch(setUsers(users))
       })
