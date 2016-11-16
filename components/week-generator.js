@@ -8,6 +8,16 @@ import Panel from 'react-bootstrap/lib/Panel'
 
 import { DateField } from 'react-date-picker'
 
+const exceptedDays = [
+  moment([2017, 4, 6]).toString(),  // 5월 6일 - 5월 5일 어린이날
+  moment([2017, 5, 3]).toString(),  // 6월 3일 - 6월 6일(화요일)이 현충일
+  moment([2017, 7, 12]).toString(), // 8월 12일 - 8월 15일(화요일)에 광복절
+  moment([2017, 9, 7]).toString(),  // 10월 7일 - 추석연휴
+  moment([2017, 6, 22]).toString(), // 7월 22일 - 휴가철
+  moment([2017, 6, 29]).toString(), // 7월 29일 - 휴가철
+  moment([2017, 7, 5]).toString()   // 8월 5일 - 휴가철
+]
+
 export default class WeekGenerator extends Component {
 
   constructor() {
@@ -56,7 +66,13 @@ export default class WeekGenerator extends Component {
     const { start, end } = this.state
     if(isEmpty(start) || isEmpty(end)) return
 
-    const ableWeekends = this._getWeekends(start, end, [start])
+    let ableWeekends = this._getWeekends(start, end, [start])
+
+    ableWeekends = ableWeekends.filter(weekend => {
+      return !exceptedDays.some(dayStr => {
+        return dayStr == weekend.toString()
+      })
+    })
 
     return ableWeekends.map((weekend, i) => {
       return <ListGroupItem key={i}>{weekend.format('YYYY-MM-DD')}</ListGroupItem>
