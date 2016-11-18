@@ -1,51 +1,30 @@
-import fetch from 'isomorphic-fetch'
 import React, { Component } from 'react'
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import { Provider } from 'react-redux'
 
-import { dev }from '../config'
-const url = dev.host + '/league'
+import { initStore } from '../store'
+import reducers from '../reducers'
 
-
-const redu = (state, action) => {
-
-  // console.log('redu state : ', state)
-  switch(action.type) {
-    default: return state
-  }
-  // return {hi: 'imtest'}
-}
+import TestLayout from '../layout/test'
 
 export default class Test extends Component {
 
-  static getInitialProps({req, res}) {
-
-    return fetch(url, {
-      method: 'get'
-    })
-    .then(res => (res.json()))
-    .then( ({leagues}) => {
-      const seasons = leagues.map(league => (league.season))
-      const initSate = {
-        leagues: leagues,
-        seasons: seasons,
-        activeSeason: seasons[0]
-      }
-
-      const store = createStore(redu, initSate, applyMiddleware(thunkMiddleware))
-      return {initState: store.getState()}
-    })
+  static getInitialProps({ req }) {
+    const isServer = !!req
+    const store = initStore(reducers, {}, isServer)
+    return  { initialState: store.getState(), isServer }
   }
 
   constructor(props) {
     super(props)
-
-    console.log('test props  : ', props)
+    this.store = initStore(reducers, props.initialState, props.isServer)
   }
 
-  render () {
+  render() {
+
     return (
-      <div>test</div>
+      <Provider store={this.store}>
+        <TestLayout url={this.props.url}/>
+      </Provider>
     )
   }
 }
