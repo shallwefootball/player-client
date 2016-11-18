@@ -6,6 +6,7 @@ import Header from './header'
 
 import ClubLink from '../admin/club-link'
 import Fixture from '../components/fixture'
+import LeagueRank from '../components/league-rank'
 
 class LeagueLayout extends Component {
 
@@ -13,6 +14,7 @@ class LeagueLayout extends Component {
     const { actions, url } = this.props
 
     actions.getMatches(url.query.leagueId)
+    actions.getLeagueRank(url.query.leagueId)
   }
   render() {
 
@@ -20,6 +22,7 @@ class LeagueLayout extends Component {
       <div>
         <Header />
         <ClubLink url={this.props.url} />
+        <LeagueRank ranks={this.props.league.ranks} />
         <Fixture match={this.props.match} />
       </div>
     )
@@ -30,8 +33,8 @@ class LeagueLayout extends Component {
 
 const mapStateToProps = (state, ownState) => {
 
-  const { match, club, player } = state
-  return { match, club, player }
+  const { match, club, player, league } = state
+  return { match, club, player, league }
 }
 
 const mapDispatchToProps = dispatch => {

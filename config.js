@@ -25,6 +25,9 @@ const apiUrl = {
   getLeague() {
     return _getUrl('/league')
   },
+  getLeagueRank({ leagueId }) {
+    return _getUrl('/league-rank/:leagueId', { leagueId })
+  },
   getMatch({ matchId }) {
     return _getUrl('/match/:matchId', { matchId })
   },

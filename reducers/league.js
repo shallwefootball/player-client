@@ -2,7 +2,8 @@ import CONST from '../constraint'
 
 const initState = {
   leagues: [],
-  seasons: []
+  seasons: [],
+  ranks: []
 }
 
 export default (state = initState, action) => {
@@ -11,7 +12,11 @@ export default (state = initState, action) => {
 
     case CONST.SET_LEAGUES: {
       const { leagues } = action
-      return { leagues}
+      return { leagues }
+    }
+    case CONST.SET_LEAGUE_RANK: {
+      state.ranks = action.ranks
+      return {...state}
     }
     default: return state
   }
