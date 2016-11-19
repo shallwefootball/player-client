@@ -24,10 +24,11 @@ class LeagueLink extends Component {
       <div>
         {
           this.props.league.leagues.map(league => {
+
             return (
               <Link href={'/league?leagueId=' + league.leagueId} key={league.leagueId}>
                 <Button>
-                  {league.community} {league.season}
+                  {league.community} {league.season} {league.group}
                 </Button>
               </Link>
             )
