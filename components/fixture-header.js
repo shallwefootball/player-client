@@ -43,9 +43,14 @@ export default class MatchHeader extends Component {
       awayImageS,
       homeScore,
       awayScore,
+      homeGiveup,
+      awayGiveup,
       note,
       friendlyMatchId
     } = this.props.match
+
+    awayScore = homeGiveup ? 3 : awayScore
+    homeScore = awayGiveup ? 3 : homeScore
 
     return (
 
