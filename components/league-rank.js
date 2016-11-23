@@ -29,15 +29,15 @@ export default class LeagueRank extends Component {
               return (
                 <tr key={club.clubId}>
                   <td>{index + 1}</td>
-                  <td>{club.clubName}</td>
-                  <td>{club.stat.points}</td>
-                  <td>{club.stat.played}</td>
-                  <td>{club.stat.won}</td>
-                  <td>{club.stat.drawn}</td>
-                  <td>{club.stat.lost}</td>
-                  <td>{club.stat.for}</td>
-                  <td>{club.stat.against}</td>
-                  <td>{club.stat.different}</td>
+                  <td>{club.teamName}</td>
+                  <td>{club.points}</td>
+                  <td>{club.played}</td>
+                  <td>{club.won}</td>
+                  <td>{club.drawn}</td>
+                  <td>{club.lost}</td>
+                  <td>{club.for}</td>
+                  <td>{club.against}</td>
+                  <td>{club.different}</td>
                 </tr>
               )
             })
