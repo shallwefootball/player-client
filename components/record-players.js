@@ -48,6 +48,7 @@ export default class RecordPlayers extends Component {
     actions.setRecord(record)
     .then(res => {
       actions.getRecords(url.query.matchId)
+      actions.getMatch(url.query.matchId)
     })
     this._close()
   }
