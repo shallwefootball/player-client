@@ -7,7 +7,7 @@ export const getClub = clubId => {
 
   return dispatch => {
 
-    fetch(apiUrl.getClub({ clubId }), { method: 'get' })
+    fetch(apiUrl.getClubClubId({ clubId }), { method: 'get' })
     .then(res => (res.json())).then(({ club }) => {
       return dispatch(setClub(club))
     })
@@ -21,6 +21,22 @@ export const getClubs = leagueId => {
     fetch(apiUrl.getClubs({ leagueId }), { method: 'get' })
     .then(res => (res.json())).then(({ clubs }) => {
       dispatch(setClubs(clubs))
+    })
+  }
+}
+
+export const updateClub = club => {
+  return dispatch => {
+
+    fetch(apiUrl.getClub(), {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({club})
+    })
+    .then(res => (res.json())).then(resJson => {
+      return resJson
     })
   }
 }

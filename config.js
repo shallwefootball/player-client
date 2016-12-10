@@ -16,11 +16,14 @@ const _getUrl = (path, params) => {
 }
 
 const apiUrl = {
-  getClub({ clubId }) {
+  getClubClubId({ clubId }) {
     return _getUrl('/club/:clubId', { clubId })
   },
   getClubs({ leagueId }) {
     return _getUrl('/clubs/:leagueId', { leagueId })
+  },
+  getClub() {
+    return _getUrl('/club')
   },
   getLeague() {
     return _getUrl('/league')

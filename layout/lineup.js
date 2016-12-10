@@ -43,7 +43,7 @@ class LineupLayout extends Component {
     players = this._getReArrangedStatusPlayers(players, this._getSubCount(players))
 
     club.formation = formation
-    actions.setClub(club)
+    actions.updateClub(club)
     actions.setPlayers(players)
   }
 

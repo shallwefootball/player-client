@@ -21,6 +21,7 @@ class RecordLayout extends Component {
         actions.getRecords(match.matchId)
       })
   }
+
   render() {
     // console.log('this.props.player.home  : ', this.props.player.home)
 
